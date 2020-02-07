@@ -45,14 +45,14 @@ plot(x,y)
 title('Sigmoidfunktion mit ausgewerteten Merkmalen')
 axis([x(1) x(end) min(y) max(y)])
 
-for yi=0:1:(feature - 1)
-   for xi=0:1:(feature - 1)
+for yi=0:1:(feature-1)
+   for xi=0:1:(feature-1)
       % Erstelle Gewichte in Form eines Spaltenvektors
-      weights = GetFeatureOfMatrix(weightMatrix, xi, yi, pixel, feature); % Matrix, x-Pos, y-Pos, Pixel, Merkmal
+      weights = GetFeatureOfMatrix(weightMatrix, xi+1, yi+1, pixel, feature+1); % Matrix, x-Pos, y-Pos, Pixel, Merkmal
       weights = ConvMatrixToColumn(weights);
 
       % Erstelle Eingänge in Form eines Spaltenvektors
-      inputs = GetFeatureOfMatrix(inputMatrix, xi, yi, pixel, feature);
+      inputs = GetFeatureOfMatrix(inputMatrix, xi+1, yi+1, pixel, feature+1);
       inputs = ConvMatrixToColumn(inputs);
       
       % Berechne Neuronenausgang
