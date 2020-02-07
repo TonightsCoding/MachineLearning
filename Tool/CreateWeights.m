@@ -1,6 +1,6 @@
 function weitghts = CreateWeights(pixelCnt, featureCnt, slope, type)
    % ret - Gibt Gewichtsmatrix zurueck
-   % pixelCnt - Anzahl der pixelCnt pro Merkmal
+   % pixelCnt - Anzahl der Pixel pro Merkmal
    % featureCnt - Anzahl der Merkmale
    % slope - Steilheit der Fkt, Randrauschen unterdruecken 1 bis 100%
    % type - Art wie die Gewichte erstellt werden - Mul, Add
