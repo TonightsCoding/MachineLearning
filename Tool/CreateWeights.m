@@ -1,7 +1,7 @@
-function M = CreateWeights(pixel, feature, slope, type)
+function weitghts = CreateWeights(pixelCnt, featureCnt, slope, type)
    % ret - Gibt Gewichtsmatrix zurueck
-   % pixel - Anzahl der Pixel pro Merkmal
-   % feature - Anzahl der Merkmale
+   % pixelCnt - Anzahl der pixelCnt pro Merkmal
+   % featureCnt - Anzahl der Merkmale
    % slope - Steilheit der Fkt, Randrauschen unterdruecken 1 bis 100%
    % type - Art wie die Gewichte erstellt werden - Mul, Add
    
@@ -9,8 +9,8 @@ function M = CreateWeights(pixel, feature, slope, type)
       error('Rauschwert ist nicht erlaubt');
    end
    
-   v_N=pixel * feature;
-   h_N=pixel * feature;
+   v_N=pixelCnt * featureCnt;
+   h_N=pixelCnt * featureCnt;
    sigma = -0.0019*(slope - 1) + 0.2;
    gaussFunction = @(x, s, x0)(1/(sqrt(2*pi).*s))*exp(-((x-x0).^2)/(2.*s.^2));
 
@@ -48,9 +48,9 @@ function M = CreateWeights(pixel, feature, slope, type)
 
    % Ausgabe der Gewichtsmatrix
    if strcmp(type, 'Mul')
-      M = Weigth_Matrix_Mul;
+      weitghts = Weigth_Matrix_Mul;
    elseif strcmp(type, 'Add')
-      M = Weigth_Matrix_Add;
+      weitghts = Weigth_Matrix_Add;
    else
       error('type unknown, use Mul or Add')
    end
