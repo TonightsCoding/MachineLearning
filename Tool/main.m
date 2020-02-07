@@ -4,7 +4,7 @@ functionMaxValue = 6;
 bias = -1;
 pixel = 8;
 feature = 5;
-noise = 30; % entspricht dem doppeltem Wert da 100 = invertiert
+noise = 60;
 slope = 50;
 threshold = 0.65;
 
@@ -31,7 +31,7 @@ mesh(weightMatrix)
 title('Gewichtsmatrix')
 outputFeatures = zeros(5, 5); % Erstelle Merkmale-Ausgangs-Matrix
 outputFeaturesSum = zeros(5,5); % Erstelle Merkmale-Ausgangs-Matrix mit Summe aus Pixeln pro Merkmal
-inputMatrix = CreatePicture(pixel, feature, noise, inputFeatures, 'test');
+inputMatrix = GetPixelMatrix(pixel, feature, noise, inputFeatures, '');
 subplot(2,2,2)
 imshow(inputMatrix)
 title('Eingangs-Merkmale-Matrix')
@@ -77,7 +77,7 @@ for yi=0:1:(feature-1)
    end
 end
 
-outputMatrix = CreatePicture(pixel, feature, 0, outputFeatures, 'test');
+outputMatrix = GetPixelMatrix(pixel, feature, 0, outputFeatures, '');
 subplot(2,2,4)
 imshow(outputMatrix)
 title('Ausgangs-Merkmale-Matrix')
