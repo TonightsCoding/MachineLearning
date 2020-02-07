@@ -1,0 +1,12 @@
+# Created by Bryan on 6. February
+# Edited by Toni on 7. February
+
+# Verarbeitungsdateien von LaTeX ausschließen
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+*.pdf
+*.gz
+*.toc
