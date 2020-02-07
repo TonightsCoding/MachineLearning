@@ -1,83 +1,92 @@
 close all, clear all
 
-functionMaxValue = 6;
-bias = -1;
-pixel = 8;
-feature = 5;
-noise = 30; % entspricht dem doppeltem Wert da 100 = invertiert
-slope = 50;
-threshold = 0.65;
+% globale Variablen
+pixelCnt = 8;           % Anzahl der Pixel in x-Richtung pro Merkmal - mindestens 1
+featureCnt = 5;         % Anzahl der Merkmale in x-Richtung - mindestens 1
+bias = -1;              % Verschiebung in x-Richtung -> Neg (rechts), Pos (links)
+noise = 60;             % Verrauschungsgrad zwischen 0 und 100%
+slope = 50;             % 
+domainOfDefinition = 6; % Gueltigkeitsbereich der Neuronenfunktion -> (+/- domainOfDefinition)
+threshold = 0.65;       % Auswertungsschwelle des Ergebnisses
+weightType = 'Add';     % Typ der Gewichtsmatrix
 
-% Merkmale-Eingangs-Matrix
+% Erstellen der Eingangs-Merkmale-Matrix
 I1 = [0 0 1 0 0]; % Zeile 1
 I2 = [0 0 1 0 0]; % Zeile 2
 I3 = [1 1 1 1 1]; % Zeile 3
 I4 = [0 0 1 0 0]; % Zeile 4
 I5 = [0 0 1 0 0]; % Zeile 5
+inputFeatureMatrix = uint8([I1; I2; I3; I4; I5]);
 
-% Merkmale-Eingangs-Matrix
-%I1 = [1 1 1 1 1]; % Zeile 1
-%I2 = [1 1 1 1 1]; % Zeile 2
-%I3 = [1 1 1 1 1]; % Zeile 3
-%I4 = [1 1 1 1 1]; % Zeile 4
-%I5 = [1 1 1 1 1]; % Zeile 5
+% Erstellen der Ausgangs-Merkmale-Matrix
+outputFeatureMatrix = zeros(5, 5); % Erstelle Merkmale-Ausgangs-Matrix
+outputFeatureMatrixDebug = zeros(5,5); % Erstelle Merkmale-Ausgangs-Matrix mit Summe aus Pixeln pro Merkmal
 
-inputFeatures = uint8([I1; I2; I3; I4; I5]); % Erstelle Merkmale-Eingangs-Matrix
-weightMatrix = CreateWeights(pixel, feature, slope, 'Add'); % Pixel, Merkmale, Steilheit, Art
+% Erstellen der Gewichts-Matrix
+weightMatrix = GetWeights(pixelCnt, featureCnt, slope, weightType); % Pixel, Merkmale, Steilheit, Art
+
+% Erstelle Plot der Gewichts-Matrix
 figure
 hold on
 subplot(2,2,1)
 mesh(weightMatrix)
 title('Gewichtsmatrix')
-outputFeatures = zeros(5, 5); % Erstelle Merkmale-Ausgangs-Matrix
-outputFeaturesSum = zeros(5,5); % Erstelle Merkmale-Ausgangs-Matrix mit Summe aus Pixeln pro Merkmal
-inputMatrix = CreatePicture(pixel, feature, noise, inputFeatures, 'test');
+
+% Erstelle Plot der Eingangs-Merkmale-Matrix
 subplot(2,2,2)
-imshow(inputMatrix)
+inputPixelFeatureMatrix = GetPixelFeatureMatrix(pixelCnt, featureCnt, noise, inputFeatureMatrix, '');
+imshow(inputPixelFeatureMatrix)
 title('Eingangs-Merkmale-Matrix')
-inputMatrix = (255 - inputMatrix)/255;
 
-% Erstelle Plot von der Sigmoidfunktion 
-x = -functionMaxValue:0.01:functionMaxValue;
-y = SigmoidFunction(x, bias);
+inputMatrix = (255 - inputPixelFeatureMatrix)/255;
+
+% Erstelle Plot der Sigmoidfunktion 
 subplot(2,2,3)
+x = -domainOfDefinition:0.01:domainOfDefinition;
+y = SigmoidFunction(x, bias);
 plot(x,y)
-title('Sigmoidfunktion mit ausgewerteten Merkmalen')
 axis([x(1) x(end) min(y) max(y)])
+title('Sigmoidfunktion mit ausgewerteten Merkmalen')
 
-for yi=0:1:(feature - 1)
-   for xi=0:1:(feature - 1)
-      % Erstelle Gewichte in Form eines Spaltenvektors
-      weights = GetFeatureOfMatrix(weightMatrix, xi, yi, pixel, feature); % Matrix, x-Pos, y-Pos, Pixel, Merkmal
+% Iteration ueber alle Merkmale
+for yi=1:1:(featureCnt)
+   for xi=1:1:(featureCnt)
+      % Bestimmung der Gewichte in Form eines Spaltenvektors
+      weights = GetFeatureOfMatrix(weightMatrix, xi, yi, pixelCnt, featureCnt+1);
       weights = ConvMatrixToColumn(weights);
 
-      % Erstelle Eingänge in Form eines Spaltenvektors
-      inputs = GetFeatureOfMatrix(inputMatrix, xi, yi, pixel, feature);
+      % Bestimmung der Eingaenge in Form eines Spaltenvektors
+      inputs = GetFeatureOfMatrix(inputMatrix, xi, yi, pixelCnt, featureCnt+1);
       inputs = ConvMatrixToColumn(inputs);
       
       % Berechne Neuronenausgang
-      [inputFeaturesNew, output] = GetNeuronOutput(inputs, weights, bias, functionMaxValue, 'sigmoid'); % Eingangszustand, Gewichte, Bias, MaxWert, Art
+      [neuronNetTerms, neuronOutput] = GetNeuronOutput(inputs, weights, bias, domainOfDefinition, 'sigmoid');
       
-      if output > threshold
-         outputFeatures(yi+1, xi+1) = 1;
+      % Werte Teilergebnis aus und trage es in Ausgang-Merkmale-Matrix ein
+      if neuronOutput > threshold
+         outputFeatureMatrix(yi, xi) = 1;
       else
-         outputFeatures(yi+1, xi+1) = 0;
+         outputFeatureMatrix(yi, xi) = 0;
       end
       
-      % Zeichne Merkmal in Plot
+      % Zeichne Merkmal in Sigmoidfunktion ein
       hold on
       subplot(2,2,3)
-      if outputFeatures(yi+1, xi+1) == inputFeatures(yi+1, xi+1)
-         plot(sum(inputFeaturesNew), output, '*')
+      if outputFeatureMatrix(yi, xi) == inputFeatureMatrix(yi, xi)
+         % Merkmal richtig detektiert
+         plot(sum(neuronNetTerms), neuronOutput, 'o', 'color', 'g')
       else
-         plot(sum(inputFeaturesNew), output, 'o', 'color', 'r')
+         % Merkmal falsch detektiert
+         plot(sum(neuronNetTerms), neuronOutput, 'o', 'color', 'r')
       end
       
-      outputFeaturesSum(yi+1, xi+1) = sum(inputFeaturesNew);
+      % zum Debugging
+      outputFeatureMatrixDebug(yi, xi) = sum(neuronNetTerms);
    end
 end
 
-outputMatrix = CreatePicture(pixel, feature, 0, outputFeatures, 'test');
+% Erstelle Plot der Ausgangs-Merkmale-Matrix
 subplot(2,2,4)
-imshow(outputMatrix)
+outputFeatureMatrix = GetPixelFeatureMatrix(pixelCnt, featureCnt, 0, outputFeatureMatrix, '');
+imshow(outputFeatureMatrix)
 title('Ausgangs-Merkmale-Matrix')

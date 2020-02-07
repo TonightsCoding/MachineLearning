@@ -2,7 +2,6 @@ function feature = GetFeatureOfMatrix(matrix, featureX, featureY, pixelCnt, feat
    % Funktion teilt die uebergebene Matrix in Merkmale ein und gibt nur
    % ein Merkmal zurueck
    %
-   % feature - zurueckgegebene Matrix eines Merkmals (Mermale-Matrix)
    % matrix - Matrix mit allen Merkmalen
    % featureX - Position des Merkmals in X-Richtung - startet mit 1
    % featureY - Position des Merkmals in Y-Richtung - startet mit 1

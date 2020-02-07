@@ -1,6 +1,10 @@
 function [netTerms, output] = GetNeuronOutput(inputs, weights, bias, domainOfDefinition, type)
+   % Berechnet ein Neuron und gibt das Zwischen- und Endergebnis zurueck.
+   %
+   % returns:
    % netTerms - Zwischergebnisse als Spaltenvektor -> inputs * weights
    % output - Ausgang des Neurons
+   %
    % inputs - Zustaende der Eingaenge als Spaltenvektor
    % weights - Gewichte der Eingaenge als Spaltenvektor
    % bias - Verschiebung in x-Richtung -> Neg (rechts), Pos (links)
