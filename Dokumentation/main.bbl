@@ -1,3 +1,27 @@
-\begin{thebibliography}{}
+\begin{thebibliography}{1}
+
+\bibitem{dasgehirn.info}
+Anna Corves.
+\newblock www.dasgehirn.info, 2012.
+\newblock
+  \url{https://www.dasgehirn.info/grundlagen/kommunikation-der-zellen/nervenzellen-im-gespraech},
+  Letzter Zugriff 21, Oktober 2017.
+
+\bibitem{Kratzer1991}
+Klaus~Peter Kratzer.
+\newblock {\em Neuronale Netze}.
+\newblock Hanser, 1991.
+
+\bibitem{Mazzetti1996}
+Alessandro Mazzetti.
+\newblock {\em Praktische Einführung in Neuronale Netze}.
+\newblock Heise, 1996.
+
+\bibitem{gehirnlernen.de}
+Andrea Schäfers.
+\newblock www.gehirnlernen.de.
+\newblock
+  \url{https://www.gehirnlernen.de/gehirn/die-einzelne-nervenzelle-und-wie-sie-mit-anderen-kommuniziert/},
+  Letzter Zugriff 21. Oktober 2017.
 
 \end{thebibliography}
