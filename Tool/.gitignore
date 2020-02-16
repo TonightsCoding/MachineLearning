@@ -1,5 +1,6 @@
 # Created by Bryan on 6. February
-# alle Dateien ignorieren außer *.m
+# alle Dateien ignorieren ausser *.m und README.md
 *.*
 !*.m
+!README.md
 !.gitignore
