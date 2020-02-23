@@ -1,9 +1,18 @@
-function weights = GetWeights(pixelCnt, featureCnt, slope, type)
+function weights = GetWeights(pixelCnt, featureCnt, slope, type, lower, upper)
    % weights - Rueckgabe der Gewichtsmatrix
    % pixelCnt - Anzahl der Pixel pro Merkmal
    % featureCnt - Anzahl der Merkmale
    % slope - Steilheit der Fkt, Randrauschen unterdruecken 1 bis 100%
-   % type - Art wie die Gewichte erstellt werden - Mul, Add
+   % type - Art wie die Gewichte erstellt werden - Mul, Add oder MullAdd
+   % lower - Die untere Grenze der Gewichte (default = -1)
+   % upper - Die obere Grenze der Gewichte (default = 1)
+   
+   if nargin == 4
+       lower = -1;
+       upper = 1;
+   elseif nargin == 5
+       error('Bitte zweite Grenze fuer die Gewichte angeben oder auf die Vorgabe von Gewichten verzichten');
+   end
    
    if (slope < 1) || (slope > 100)
       error('Rauschwert ist nicht erlaubt');
@@ -34,6 +43,11 @@ function weights = GetWeights(pixelCnt, featureCnt, slope, type)
    
     % zweite Matrix erzeugen zur Ueberlagerung von (v_Gauss & h_Gauss)
     res_Weight_Matrix = zeros(h_N, v_N);
+    
+    % fuer (type == MulAdd) zusaetzliche Matrix erzeugen
+    if strcmp(type, 'MulAdd')
+        MulAdd_Weight_Matrix = zeros(h_N, v_N);
+    end
    
     % Unterscheidung in for-Schleife je nach Art der Ueberlagerung (weightType)
     % Zuerst if/elseif und dann for akzeptiert MATLAB nicht :( 
@@ -45,16 +59,25 @@ function weights = GetWeights(pixelCnt, featureCnt, slope, type)
         if strcmp(type, 'Add')
             res_Weight_Matrix(1:end, i) = (Weight_Matrix(1:end, i) + (h_Gauss./max(h_Gauss))')./2;
             res_Weight_Matrix(1:end, i) = res_Weight_Matrix(1:end, i) .* 2 - 1;
-        end        
+        end
+        if strcmp(type, 'MulAdd')
+            MulAdd_Weight_Matrix(1:end, i) = Weight_Matrix(1:end, i) .* (h_Gauss./max(h_Gauss))';
+            MulAdd_Weight_Matrix(1:end, i) = MulAdd_Weight_Matrix(1:end, i) - 1;
+            res_Weight_Matrix(1:end, i) = (Weight_Matrix(1:end, i) + (h_Gauss./max(h_Gauss))') - 1;
+            res_Weight_Matrix(1:end, i) = res_Weight_Matrix(1:end, i) - MulAdd_Weight_Matrix(1:end, i);
+            res_Weight_Matrix(1:end, i) = res_Weight_Matrix(1:end, i) .* 2 - 1;
+        end
     end      
     if(res_Weight_Matrix == zeros(h_N, v_N))
         error('Weighttype for generation unknown, use Mul, Add or Muladd')
     end
+
     weights = res_Weight_Matrix;
-    
+
 %     % Plot der Gewichte getrennt vertikal und horizontal 
-%     % und anschlie�end Ergebnis mit Angabe des Verwendeten Verfahrens
+%     % und anschliessend Ergebnis mit Angabe des Verwendeten Verfahrens
 %     % horizontal muss fuer den Plot extra erzeugt/normiert werden
+%     close all
 %     sec_Weight_Matrix = zeros(h_N, v_N);
 %     for j = 1:h_N
 %         sec_Weight_Matrix(1:end, j) = h_Gauss./max(h_Gauss);
