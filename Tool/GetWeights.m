@@ -76,11 +76,18 @@ function weights = GetWeights(pixelCnt, featureCnt, slope, type, lower, upper)
     
     if(lower == 0 && upper == 1)
         res_Weight_Matrix = res_Weight_Matrix + 1;
-        res_Weight_Matrix =res_Weight_Matrix ./ 2;
-    elseif(not(lower == -1 && upper == 1)) % für andere Grenzen als 0..1 und -1..1
-        error('Komische Gewichte')
-        % range berechnen und verschieben ensprechend der Grenzen
+        res_Weight_Matrix = res_Weight_Matrix ./ 2;
+    elseif(not(lower == -1 && upper == 1)) % fuer andere Grenzen als 0..1 oder -1..1
+        if(-lower == upper) % fuer symmetrische Grenzen um Null (e.g. -2..2)
+            res_Weight_Matrix = res_Weight_Matrix.*upper;
+        else % auf 0..2 verschieben und anschliessend mit (half_range) skalieren und verschieben
+            res_Weight_Matrix = res_Weight_Matrix + 1;
+            half_range = ((upper - lower)/2);
+            res_Weight_Matrix = res_Weight_Matrix .* half_range;
+            res_Weight_Matrix = res_Weight_Matrix + lower;            
+        end        
     end
+    
     weights = res_Weight_Matrix;
     
 %     % Plot der Gewichte getrennt vertikal und horizontal 
