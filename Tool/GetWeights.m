@@ -32,26 +32,42 @@ function weitghts = CreateWeights(pixelCnt, featureCnt, slope, type)
        Weigth_Matrix(i, 1:end) = v_Gauss./max(v_Gauss);
    end
 
-   % zweiten Gauss multiplikativ ueberlagern
-   Weigth_Matrix_Mul = zeros(h_N, v_N);
-   for i = 1:v_N
-       Weigth_Matrix_Mul(1:end, i) = Weigth_Matrix(1:end, i) .* (h_Gauss./max(h_Gauss))';
-       Weigth_Matrix_Mul(1:end, i) = Weigth_Matrix_Mul(1:end, i) .* 2 - 1;
-   end
-
-   % zweiten Gauss additiv ueberlagern
-   Weigth_Matrix_Add = zeros(h_N, v_N);
-   for i = 1:v_N
-       Weigth_Matrix_Add(1:end, i) = (Weigth_Matrix(1:end, i) + (h_Gauss./max(h_Gauss))')./2;
-       Weigth_Matrix_Add(1:end, i) = Weigth_Matrix_Add(1:end, i) .* 2 - 1;
-   end
-
-   % Ausgabe der Gewichtsmatrix
-   if strcmp(type, 'Mul')
-      weitghts = Weigth_Matrix_Mul;
-   elseif strcmp(type, 'Add')
-      weitghts = Weigth_Matrix_Add;
-   else
-      error('type unknown, use Mul or Add')
-   end
+    % zweite Matrix erzeugen zur Ueberlagerung von (v_Gauss & h_Gauss)
+    res_Weight_Matrix = zeros(h_N, v_N);
+   
+    % Unterscheidung in for-Schleife je nach Art der Ueberlagerung (weightType)
+    % Zuerst if/elseif und dann for akzeptiert MATLAB nicht :( 
+    for i = 1:v_N
+        if strcmp(type, 'Mul')        
+            res_Weight_Matrix(1:end, i) = Weight_Matrix(1:end, i) .* (h_Gauss./max(h_Gauss))';
+            res_Weight_Matrix(1:end, i) = res_Weight_Matrix(1:end, i) .* 2 - 1;
+        end        
+        if strcmp(type, 'Add')
+            res_Weight_Matrix(1:end, i) = (Weight_Matrix(1:end, i) + (h_Gauss./max(h_Gauss))')./2;
+            res_Weight_Matrix(1:end, i) = res_Weight_Matrix(1:end, i) .* 2 - 1;
+        end        
+        if (not(strcmp(type, 'Add') || strcmp(type, 'Mul')))
+            error('Weighttype for generation unknown, use Mul, Add or Muladd')
+        end
+    end       
+    weights = res_Weight_Matrix;
+    
+%     % Plot der Gewichte getrennt vertikal und horizontal 
+%     % und anschließend Ergebnis mit Angabe des Verwendeten Verfahrens
+%     % horizontal muss fuer den Plot extra erzeugt/normiert werden
+%     sec_Weight_Matrix = zeros(h_N, v_N);
+%     for j = 1:h_N
+%         sec_Weight_Matrix(1:end, j) = h_Gauss./max(h_Gauss);
+%     end    
+%     figure
+%     hold on
+%     subplot(2,2,1)
+%     mesh(Weight_Matrix)
+%     title('Vertikale Gewichtsmatrix')
+%     subplot(2,2,2)
+%     mesh(sec_Weight_Matrix)
+%     title('Horizontale Gewichtsmatrix')
+%     subplot(2,2,3)
+%     mesh(weights)
+%     title(['Ergebnis Gewichtsmatrix mit "',type,'"'])
 end
