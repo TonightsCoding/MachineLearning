@@ -83,23 +83,23 @@ function weights = GetWeights(pixelCnt, featureCnt, slope, type, lower, upper)
     end
     weights = res_Weight_Matrix;
     
-    % Plot der Gewichte getrennt vertikal und horizontal 
-    % und anschliessend Ergebnis mit Angabe des Verwendeten Verfahrens
-    % horizontal muss fuer den Plot extra erzeugt/normiert werden
-    close all
-    sec_Weight_Matrix = zeros(h_N, v_N);
-    for j = 1:h_N
-        sec_Weight_Matrix(1:end, j) = h_Gauss./max(h_Gauss);
-    end    
-    figure
-    hold on
-    subplot(2,2,1)
-    mesh(Weight_Matrix)
-    title('Vertikale Gewichtsmatrix')
-    subplot(2,2,2)
-    mesh(sec_Weight_Matrix)
-    title('Horizontale Gewichtsmatrix')
-    subplot(2,2,3)
-    mesh(weights)
-    title(['Ergebnis Gewichtsmatrix mit "',type,'"'])
+%     % Plot der Gewichte getrennt vertikal und horizontal 
+%     % und anschliessend Ergebnis mit Angabe des Verwendeten Verfahrens
+%     % horizontal muss fuer den Plot extra erzeugt/normiert werden
+%     close all
+%     sec_Weight_Matrix = zeros(h_N, v_N);
+%     for j = 1:h_N
+%         sec_Weight_Matrix(1:end, j) = h_Gauss./max(h_Gauss);
+%     end    
+%     figure
+%     hold on
+%     subplot(2,2,1)
+%     mesh(Weight_Matrix)
+%     title('Vertikale Gewichtsmatrix')
+%     subplot(2,2,2)
+%     mesh(sec_Weight_Matrix)
+%     title('Horizontale Gewichtsmatrix')
+%     subplot(2,2,3)
+%     mesh(weights)
+%     title(['Ergebnis Gewichtsmatrix mit "',type,'"'])
 end
