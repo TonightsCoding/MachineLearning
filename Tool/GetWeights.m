@@ -13,7 +13,9 @@ function weights = GetWeights(pixelCnt, featureCnt, slope, type, lower, upper)
    elseif nargin == 5
        error('Bitte zweite Grenze fuer die Gewichte angeben oder auf die Vorgabe von Gewichten verzichten');
    end
-   
+   if ((upper - lower) <= 0)
+       error('Reichweite der Gewichtsgrenzen ist negativ oder gleich null => GetWeights(..., upper, lower) vertauscht?')
+   end
    if (slope < 1) || (slope > 100)
       error('Rauschwert ist nicht erlaubt');
    end
@@ -71,26 +73,33 @@ function weights = GetWeights(pixelCnt, featureCnt, slope, type, lower, upper)
     if(res_Weight_Matrix == zeros(h_N, v_N))
         error('Weighttype for generation unknown, use Mul, Add or Muladd')
     end
-
+    
+    if(lower == 0 && upper == 1)
+        res_Weight_Matrix = res_Weight_Matrix + 1;
+        res_Weight_Matrix =res_Weight_Matrix ./ 2;
+    elseif(not(lower == -1 && upper == 1)) % für andere Grenzen als 0..1 und -1..1
+        error('Komische Gewichte')
+        % range berechnen und verschieben ensprechend der Grenzen
+    end
     weights = res_Weight_Matrix;
-
-%     % Plot der Gewichte getrennt vertikal und horizontal 
-%     % und anschliessend Ergebnis mit Angabe des Verwendeten Verfahrens
-%     % horizontal muss fuer den Plot extra erzeugt/normiert werden
-%     close all
-%     sec_Weight_Matrix = zeros(h_N, v_N);
-%     for j = 1:h_N
-%         sec_Weight_Matrix(1:end, j) = h_Gauss./max(h_Gauss);
-%     end    
-%     figure
-%     hold on
-%     subplot(2,2,1)
-%     mesh(Weight_Matrix)
-%     title('Vertikale Gewichtsmatrix')
-%     subplot(2,2,2)
-%     mesh(sec_Weight_Matrix)
-%     title('Horizontale Gewichtsmatrix')
-%     subplot(2,2,3)
-%     mesh(weights)
-%     title(['Ergebnis Gewichtsmatrix mit "',type,'"'])
+    
+    % Plot der Gewichte getrennt vertikal und horizontal 
+    % und anschliessend Ergebnis mit Angabe des Verwendeten Verfahrens
+    % horizontal muss fuer den Plot extra erzeugt/normiert werden
+    close all
+    sec_Weight_Matrix = zeros(h_N, v_N);
+    for j = 1:h_N
+        sec_Weight_Matrix(1:end, j) = h_Gauss./max(h_Gauss);
+    end    
+    figure
+    hold on
+    subplot(2,2,1)
+    mesh(Weight_Matrix)
+    title('Vertikale Gewichtsmatrix')
+    subplot(2,2,2)
+    mesh(sec_Weight_Matrix)
+    title('Horizontale Gewichtsmatrix')
+    subplot(2,2,3)
+    mesh(weights)
+    title(['Ergebnis Gewichtsmatrix mit "',type,'"'])
 end
