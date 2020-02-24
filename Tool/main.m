@@ -1,29 +1,35 @@
 close all, clear all
 
 % globale Variablen
-pixelCnt = 8;           % Anzahl der Pixel in x-Richtung pro Merkmal - mindestens 1
-featureCnt = 5;         % Anzahl der Merkmale in x-Richtung - mindestens 1
-bias = -1;              % Verschiebung in x-Richtung -> Neg (rechts), Pos (links)
-noise = 60;             % Verrauschungsgrad zwischen 0 und 100%
-slope = 50;             % 
-domainOfDefinition = 6; % Gueltigkeitsbereich der Neuronenfunktion -> (+/- domainOfDefinition)
-threshold = 0.65;       % Auswertungsschwelle des Ergebnisses
-weightType = 'Add';     % Typ der Gewichtsmatrix
+pixelCnt = 8;               % Anzahl der Pixel in x-Richtung pro Merkmal - mindestens 1
+featureCnt = 5;             % Anzahl der Merkmale in x-Richtung - mindestens 1
+bias = -1;                  % Verschiebung in x-Richtung -> Neg (rechts), Pos (links)
+noise = 50;                 % Verrauschungsgrad zwischen 0 und 100%
+slope = 75;                 % Steigung der Aktivierungs-Funktion (gauss) [50]
+domainOfDefinition = 6;     % Gueltigkeitsbereich der Neuronenfunktion -> (+/- domainOfDefinition)
+threshold = 0.65;           % Auswertungsschwelle des Ergebnisses
+weightType = 'MulAdd';         % Typ der Gewichtsmatrix
+inFeatureType = 'Cross';    % Arten der Eingangs-Merkmale-Matrix 
+lowerBound = -1;            % (optional) Untere Grenze der Gewichts-Matrix (default = -1) 
+upperBound = 1;             % (optional) Obere Grenze der Gewichts-Matrix (default = 1)
 
 % Erstellen der Eingangs-Merkmale-Matrix
-I1 = [0 0 1 0 0]; % Zeile 1
-I2 = [0 0 1 0 0]; % Zeile 2
-I3 = [1 1 1 1 1]; % Zeile 3
-I4 = [0 0 1 0 0]; % Zeile 4
-I5 = [0 0 1 0 0]; % Zeile 5
-inputFeatureMatrix = uint8([I1; I2; I3; I4; I5]);
+inputFeatureMatrix = GetInputFeatureMatrix(featureCnt, inFeatureType);
+
+% I1 = [0 0 1 0 0]; % Zeile 1
+% I2 = [0 0 1 0 0]; % Zeile 2
+% I3 = [1 1 1 1 1]; % Zeile 3
+% I4 = [0 0 1 0 0]; % Zeile 4
+% I5 = [0 0 1 0 0]; % Zeile 5
+% inputFeatureMatrix = uint8([I1; I2; I3; I4; I5]);
 
 % Erstellen der Ausgangs-Merkmale-Matrix
 outputFeatureMatrix = zeros(5, 5); % Erstelle Merkmale-Ausgangs-Matrix
 outputFeatureMatrixDebug = zeros(5,5); % Erstelle Merkmale-Ausgangs-Matrix mit Summe aus Pixeln pro Merkmal
 
 % Erstellen der Gewichts-Matrix
-weightMatrix = GetWeights(pixelCnt, featureCnt, slope, weightType); % Pixel, Merkmale, Steilheit, Art
+weightMatrix = GetWeights(pixelCnt, featureCnt, slope, weightType, lowerBound, upperBound); 
+% Pixel, Merkmale, Steilheit, Art, (untere, obere Grenze)
 
 % Erstelle Plot der Gewichts-Matrix
 figure
