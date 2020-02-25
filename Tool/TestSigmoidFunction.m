@@ -10,7 +10,7 @@ x = 2;
 % Zum Testen eventuell [] fuer ungenutzte Parameter eintragen?
 
 sig = zeros(1, nice);
-y = SigmoidFunction(nice, x);
+y = SigmoidFunction(10, 2, 0);
 disp(y);
 disp(sig);
 % t = linspace(x1, x2, nice);
