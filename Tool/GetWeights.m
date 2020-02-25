@@ -1,9 +1,9 @@
-function weights = GetWeights(pixelCnt, featureCnt, slope, type, lower, upper)
+function [weights, vWeightMatrix, hWeightMatrix] = GetWeights(pixelCnt, featureCnt, slope, type, lower, upper)
    % weights - Rueckgabe der Gewichtsmatrix
    % pixelCnt - Anzahl der Pixel pro Merkmal
    % featureCnt - Anzahl der Merkmale
    % slope - Steilheit der Fkt, Randrauschen unterdruecken 1 bis 100%
-   % type - Art wie die Gewichte erstellt werden - Mul, Add oder MullAdd
+   % type - Art wie die Gewichte erstellt werden - Mul, Add oder AddMul
    % lower - Die untere Grenze der Gewichte (default = -1)
    % upper - Die obere Grenze der Gewichte (default = 1)
    
@@ -20,118 +20,84 @@ function weights = GetWeights(pixelCnt, featureCnt, slope, type, lower, upper)
       error('Rauschwert ist nicht erlaubt');
    end
    
-   v_N=pixelCnt * featureCnt;
-   h_N=pixelCnt * featureCnt;
+   vN = pixelCnt * featureCnt;
+   hN = pixelCnt * featureCnt;
    sigma = -0.0019*(slope - 1) + 0.2;
-   gaussFunction = @(x, s, x0)(1/(sqrt(2*pi).*s))*exp(-((x-x0).^2)/(2.*s.^2));
+   GaussFunction = @(x, s, x0)(1/(sqrt(2*pi).*s))*exp(-((x-x0).^2)/(2.*s.^2));
 
    % Einteilung bestimmen
-   v = linspace(-0.3,0.3,v_N);
-   h = linspace(-0.3,0.3,h_N);
+   v = linspace(-0.3,0.3,vN);
+   h = linspace(-0.3,0.3,hN);
 
    % 2 Gaussfunktionen mit festem Sigma im Raum
    % Sigma zwischen 0.01 und 0.2 waehlen
-   v_Gauss = gaussFunction(v, sigma, 0); % x-Achse, v-Balken
-   h_Gauss = gaussFunction(h, sigma, 0); % y-Achse, h-Balken
+   vGauss = GaussFunction(v, sigma, 0); % x-Achse, v-Balken
+   hGauss = GaussFunction(h, sigma, 0); % y-Achse, h-Balken
 
-   % Gewichts-Matrix erstellen
-   Weight_Matrix = zeros(h_N, v_N);
+   % initiale Gewichts-Matrix erstellen
+   vWeightMatrix = zeros(hN, vN);
 
    % ersten Gauss in Gewichts-Matrix schreiben
-   for i = 1:h_N
+   for i = 1:hN
        % auf 1 Normieren und in Matrix schreiben
-       Weight_Matrix(i, 1:end) = v_Gauss./max(v_Gauss);
+       vWeightMatrix(i, 1:end) = vGauss./max(vGauss);
+   end
+   if (nargout == 3)
+       hWeightMatrix = zeros(hN, vN);
+       for j = 1:hN
+           hWeightMatrix(1:end, j) = hGauss./max(hGauss);
+       end 
    end
    
-   % zweite Matrix erzeugen zur Ueberlagerung von (v_Gauss & h_Gauss)
-   res_Weight_Matrix = zeros(h_N, v_N);
+   % zweite temporaere Matrix erzeugen zur Ueberlagerung von (v_Gauss & h_Gauss)
+   tempWeightMatrix = zeros(hN, vN);
 
    % fuer (type == MulAdd) zusaetzliche Matrix erzeugen
-   if strcmp(type, 'MulAdd')
-     MulAdd_Weight_Matrix = zeros(h_N, v_N);
+   if strcmp(type, 'AddMul')
+     addMulWeightMatrix = zeros(hN, vN);
    end
 
    % Unterscheidung in for-Schleife je nach Art der Ueberlagerung (weightType)
-   % Zuerst if/elseif und dann for akzeptiert MATLAB nicht :( 
-%    for i = 1:v_N
-%      if strcmp(type, 'Mul')        
-%          res_Weight_Matrix(1:end, i) = Weight_Matrix(1:end, i) .* (h_Gauss./max(h_Gauss))';
-%          res_Weight_Matrix(1:end, i) = res_Weight_Matrix(1:end, i) .* 2 - 1;
-%      end        
-%      if strcmp(type, 'Add')
-%          res_Weight_Matrix(1:end, i) = (Weight_Matrix(1:end, i) + (h_Gauss./max(h_Gauss))')./2;
-%          res_Weight_Matrix(1:end, i) = res_Weight_Matrix(1:end, i) .* 2 - 1;
-%      end
-%      if strcmp(type, 'MulAdd')
-%          MulAdd_Weight_Matrix(1:end, i) = Weight_Matrix(1:end, i) .* (h_Gauss./max(h_Gauss))';
-%          MulAdd_Weight_Matrix(1:end, i) = MulAdd_Weight_Matrix(1:end, i) - 1;
-%          res_Weight_Matrix(1:end, i) = (Weight_Matrix(1:end, i) + (h_Gauss./max(h_Gauss))') - 1;
-%          res_Weight_Matrix(1:end, i) = res_Weight_Matrix(1:end, i) - MulAdd_Weight_Matrix(1:end, i);
-%          res_Weight_Matrix(1:end, i) = res_Weight_Matrix(1:end, i) .* 2 - 1;
-%      end
-%    end
-%    if(res_Weight_Matrix == zeros(h_N, v_N))
-%      error('Weighttype for generation unknown, use Mul, Add or Muladd')
-%    end
    
    if strcmp(type, 'Mul')
-      for i = 1:v_N
-         res_Weight_Matrix(1:end, i) = Weight_Matrix(1:end, i) .* (h_Gauss./max(h_Gauss))';
-         res_Weight_Matrix(1:end, i) = res_Weight_Matrix(1:end, i) .* 2 - 1;
+      for i = 1:vN
+         tempWeightMatrix(1:end, i) = vWeightMatrix(1:end, i) .* (hGauss./max(hGauss))';
+         tempWeightMatrix(1:end, i) = tempWeightMatrix(1:end, i) .* 2 - 1;
       end
    elseif strcmp(type, 'Add')
-      for i = 1:v_N
-         res_Weight_Matrix(1:end, i) = (Weight_Matrix(1:end, i) + (h_Gauss./max(h_Gauss))')./2;
-         res_Weight_Matrix(1:end, i) = res_Weight_Matrix(1:end, i) .* 2 - 1;
+      for i = 1:vN
+         tempWeightMatrix(1:end, i) = (vWeightMatrix(1:end, i) + (hGauss./max(hGauss))')./2;
+         tempWeightMatrix(1:end, i) = tempWeightMatrix(1:end, i) .* 2 - 1;
       end
-   elseif strcmp(type, 'MulAdd')
-      for i = 1:v_N
+   elseif strcmp(type, 'AddMul')
+      for i = 1:vN
          % v-Gauss und h-Gauss multiplizieren
-         MulAdd_Weight_Matrix(1:end, i) = (Weight_Matrix(1:end, i) .* (h_Gauss./max(h_Gauss))') - 1;
+         addMulWeightMatrix(1:end, i) = (vWeightMatrix(1:end, i) .* (hGauss./max(hGauss))') - 1;
          % v-Gauss und h-Gauss addieren
-         res_Weight_Matrix(1:end, i) = (Weight_Matrix(1:end, i) + (h_Gauss./max(h_Gauss))') - 1;
+         tempWeightMatrix(1:end, i) = (vWeightMatrix(1:end, i) + (hGauss./max(hGauss))') - 1;
          % mittlere Erhoehung entfernen
-         res_Weight_Matrix(1:end, i) = res_Weight_Matrix(1:end, i) - MulAdd_Weight_Matrix(1:end, i);
+         tempWeightMatrix(1:end, i) = tempWeightMatrix(1:end, i) - addMulWeightMatrix(1:end, i);
          % skalieren
-         res_Weight_Matrix(1:end, i) = res_Weight_Matrix(1:end, i) .* 2 - 1;
+         tempWeightMatrix(1:end, i) = tempWeightMatrix(1:end, i) .* 2 - 1;
       end
    else
-      error('Weighttype for generation unknown, use Mul, Add or Muladd')
+      error('Weighttype for generation unknown, use Mul, Add or AddMul')
    end
 
    if(lower == 0 && upper == 1)
-     res_Weight_Matrix = res_Weight_Matrix + 1;
-     res_Weight_Matrix = res_Weight_Matrix ./ 2;
+     tempWeightMatrix = tempWeightMatrix + 1;
+     tempWeightMatrix = tempWeightMatrix ./ 2;
    elseif(not(lower == -1 && upper == 1)) % fuer andere Grenzen als 0..1 oder -1..1
      if(-lower == upper) % fuer symmetrische Grenzen um Null (e.g. -2..2)
-         res_Weight_Matrix = res_Weight_Matrix.*upper;
+         tempWeightMatrix = tempWeightMatrix.*upper;
      else % auf 0..2 verschieben und anschliessend mit (half_range) skalieren und verschieben
-         res_Weight_Matrix = res_Weight_Matrix + 1;
-         half_range = ((upper - lower)/2);
-         res_Weight_Matrix = res_Weight_Matrix .* half_range;
-         res_Weight_Matrix = res_Weight_Matrix + lower;            
+         tempWeightMatrix = tempWeightMatrix + 1;
+         halfRange = ((upper - lower)/2);
+         tempWeightMatrix = tempWeightMatrix .* halfRange;
+         tempWeightMatrix = tempWeightMatrix + lower;            
      end        
    end
     
-   weights = res_Weight_Matrix;
+   weights = tempWeightMatrix;
     
-%     % Plot der Gewichte getrennt vertikal und horizontal 
-%     % und anschliessend Ergebnis mit Angabe des Verwendeten Verfahrens
-%     % horizontal muss fuer den Plot extra erzeugt/normiert werden
-%     close all
-%     sec_Weight_Matrix = zeros(h_N, v_N);
-%     for j = 1:h_N
-%         sec_Weight_Matrix(1:end, j) = h_Gauss./max(h_Gauss);
-%     end    
-%     figure
-%     hold on
-%     subplot(2,2,1)
-%     mesh(Weight_Matrix)
-%     title('Vertikale Gewichtsmatrix')
-%     subplot(2,2,2)
-%     mesh(sec_Weight_Matrix)
-%     title('Horizontale Gewichtsmatrix')
-%     subplot(2,2,3)
-%     mesh(weights)
-%     title(['Ergebnis Gewichtsmatrix mit "',type,'"'])
 end
