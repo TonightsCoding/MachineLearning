@@ -43,52 +43,77 @@ function weights = GetWeights(pixelCnt, featureCnt, slope, type, lower, upper)
        Weight_Matrix(i, 1:end) = v_Gauss./max(v_Gauss);
    end
    
-    % zweite Matrix erzeugen zur Ueberlagerung von (v_Gauss & h_Gauss)
-    res_Weight_Matrix = zeros(h_N, v_N);
-    
-    % fuer (type == MulAdd) zusaetzliche Matrix erzeugen
-    if strcmp(type, 'MulAdd')
-        MulAdd_Weight_Matrix = zeros(h_N, v_N);
-    end
+   % zweite Matrix erzeugen zur Ueberlagerung von (v_Gauss & h_Gauss)
+   res_Weight_Matrix = zeros(h_N, v_N);
+
+   % fuer (type == MulAdd) zusaetzliche Matrix erzeugen
+   if strcmp(type, 'MulAdd')
+     MulAdd_Weight_Matrix = zeros(h_N, v_N);
+   end
+
+   % Unterscheidung in for-Schleife je nach Art der Ueberlagerung (weightType)
+   % Zuerst if/elseif und dann for akzeptiert MATLAB nicht :( 
+%    for i = 1:v_N
+%      if strcmp(type, 'Mul')        
+%          res_Weight_Matrix(1:end, i) = Weight_Matrix(1:end, i) .* (h_Gauss./max(h_Gauss))';
+%          res_Weight_Matrix(1:end, i) = res_Weight_Matrix(1:end, i) .* 2 - 1;
+%      end        
+%      if strcmp(type, 'Add')
+%          res_Weight_Matrix(1:end, i) = (Weight_Matrix(1:end, i) + (h_Gauss./max(h_Gauss))')./2;
+%          res_Weight_Matrix(1:end, i) = res_Weight_Matrix(1:end, i) .* 2 - 1;
+%      end
+%      if strcmp(type, 'MulAdd')
+%          MulAdd_Weight_Matrix(1:end, i) = Weight_Matrix(1:end, i) .* (h_Gauss./max(h_Gauss))';
+%          MulAdd_Weight_Matrix(1:end, i) = MulAdd_Weight_Matrix(1:end, i) - 1;
+%          res_Weight_Matrix(1:end, i) = (Weight_Matrix(1:end, i) + (h_Gauss./max(h_Gauss))') - 1;
+%          res_Weight_Matrix(1:end, i) = res_Weight_Matrix(1:end, i) - MulAdd_Weight_Matrix(1:end, i);
+%          res_Weight_Matrix(1:end, i) = res_Weight_Matrix(1:end, i) .* 2 - 1;
+%      end
+%    end
+%    if(res_Weight_Matrix == zeros(h_N, v_N))
+%      error('Weighttype for generation unknown, use Mul, Add or Muladd')
+%    end
    
-    % Unterscheidung in for-Schleife je nach Art der Ueberlagerung (weightType)
-    % Zuerst if/elseif und dann for akzeptiert MATLAB nicht :( 
-    for i = 1:v_N
-        if strcmp(type, 'Mul')        
-            res_Weight_Matrix(1:end, i) = Weight_Matrix(1:end, i) .* (h_Gauss./max(h_Gauss))';
-            res_Weight_Matrix(1:end, i) = res_Weight_Matrix(1:end, i) .* 2 - 1;
-        end        
-        if strcmp(type, 'Add')
-            res_Weight_Matrix(1:end, i) = (Weight_Matrix(1:end, i) + (h_Gauss./max(h_Gauss))')./2;
-            res_Weight_Matrix(1:end, i) = res_Weight_Matrix(1:end, i) .* 2 - 1;
-        end
-        if strcmp(type, 'MulAdd')
-            MulAdd_Weight_Matrix(1:end, i) = Weight_Matrix(1:end, i) .* (h_Gauss./max(h_Gauss))';
-            MulAdd_Weight_Matrix(1:end, i) = MulAdd_Weight_Matrix(1:end, i) - 1;
-            res_Weight_Matrix(1:end, i) = (Weight_Matrix(1:end, i) + (h_Gauss./max(h_Gauss))') - 1;
-            res_Weight_Matrix(1:end, i) = res_Weight_Matrix(1:end, i) - MulAdd_Weight_Matrix(1:end, i);
-            res_Weight_Matrix(1:end, i) = res_Weight_Matrix(1:end, i) .* 2 - 1;
-        end
-    end      
-    if(res_Weight_Matrix == zeros(h_N, v_N))
-        error('Weighttype for generation unknown, use Mul, Add or Muladd')
-    end
+   if strcmp(type, 'Mul')
+      for i = 1:v_N
+         res_Weight_Matrix(1:end, i) = Weight_Matrix(1:end, i) .* (h_Gauss./max(h_Gauss))';
+         res_Weight_Matrix(1:end, i) = res_Weight_Matrix(1:end, i) .* 2 - 1;
+      end
+   elseif strcmp(type, 'Add')
+      for i = 1:v_N
+         res_Weight_Matrix(1:end, i) = (Weight_Matrix(1:end, i) + (h_Gauss./max(h_Gauss))')./2;
+         res_Weight_Matrix(1:end, i) = res_Weight_Matrix(1:end, i) .* 2 - 1;
+      end
+   elseif strcmp(type, 'MulAdd')
+      for i = 1:v_N
+         % v-Gauss und h-Gauss multiplizieren
+         MulAdd_Weight_Matrix(1:end, i) = (Weight_Matrix(1:end, i) .* (h_Gauss./max(h_Gauss))') - 1;
+         % v-Gauss und h-Gauss addieren
+         res_Weight_Matrix(1:end, i) = (Weight_Matrix(1:end, i) + (h_Gauss./max(h_Gauss))') - 1;
+         % mittlere Erhoehung entfernen
+         res_Weight_Matrix(1:end, i) = res_Weight_Matrix(1:end, i) - MulAdd_Weight_Matrix(1:end, i);
+         % skalieren
+         res_Weight_Matrix(1:end, i) = res_Weight_Matrix(1:end, i) .* 2 - 1;
+      end
+   else
+      error('Weighttype for generation unknown, use Mul, Add or Muladd')
+   end
+
+   if(lower == 0 && upper == 1)
+     res_Weight_Matrix = res_Weight_Matrix + 1;
+     res_Weight_Matrix = res_Weight_Matrix ./ 2;
+   elseif(not(lower == -1 && upper == 1)) % fuer andere Grenzen als 0..1 oder -1..1
+     if(-lower == upper) % fuer symmetrische Grenzen um Null (e.g. -2..2)
+         res_Weight_Matrix = res_Weight_Matrix.*upper;
+     else % auf 0..2 verschieben und anschliessend mit (half_range) skalieren und verschieben
+         res_Weight_Matrix = res_Weight_Matrix + 1;
+         half_range = ((upper - lower)/2);
+         res_Weight_Matrix = res_Weight_Matrix .* half_range;
+         res_Weight_Matrix = res_Weight_Matrix + lower;            
+     end        
+   end
     
-    if(lower == 0 && upper == 1)
-        res_Weight_Matrix = res_Weight_Matrix + 1;
-        res_Weight_Matrix = res_Weight_Matrix ./ 2;
-    elseif(not(lower == -1 && upper == 1)) % fuer andere Grenzen als 0..1 oder -1..1
-        if(-lower == upper) % fuer symmetrische Grenzen um Null (e.g. -2..2)
-            res_Weight_Matrix = res_Weight_Matrix.*upper;
-        else % auf 0..2 verschieben und anschliessend mit (half_range) skalieren und verschieben
-            res_Weight_Matrix = res_Weight_Matrix + 1;
-            half_range = ((upper - lower)/2);
-            res_Weight_Matrix = res_Weight_Matrix .* half_range;
-            res_Weight_Matrix = res_Weight_Matrix + lower;            
-        end        
-    end
-    
-    weights = res_Weight_Matrix;
+   weights = res_Weight_Matrix;
     
 %     % Plot der Gewichte getrennt vertikal und horizontal 
 %     % und anschliessend Ergebnis mit Angabe des Verwendeten Verfahrens
