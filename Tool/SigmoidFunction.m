@@ -132,7 +132,7 @@ function [sigmoid, y] = SigmoidFunction(nice, x1, x2, y1, y2, x, bias)
    end
    
 %    if mod(nice, 1) ~= 0 % Test ob nice-Wert eine ganze Zahl ist
-%        error('Wert für "nice" muss ganzzahlig sein!');
+%        error('Wert fuer "nice" muss ganzzahlig sein!');
 %    end
 %    sigmoid = zeros(nice);
 %    for i=x1:(x2-x1)/nice:x2
