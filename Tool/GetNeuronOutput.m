@@ -33,6 +33,7 @@ function [netTerms, output] = GetNeuronOutput(inputs, weights, bias, domainOfDef
    % Gueltigkeitsbereich der Zwischenergebnisse einschraenken
    while (netOutput > domainOfDefinition) || (-domainOfDefinition > netOutput)
       netOutput = netOutput ./ 2;
+      netTerms = netTerms ./ 2;
       %error('Zahlenbereich ueberschritten') 
    end
    
