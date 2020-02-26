@@ -10,6 +10,10 @@ function [sigmoid, y] = SigmoidFunction(nice, x1, x2, y1, y2, x, bias)
    % x - (optional) Variable fuer einzelnen Rueckgabewert der Funktion
    % bias - (optional) Verschiebung in x-Richtung, gilt fuer y und/oder sigmoid (default: 0) -> Neg (rechts), Pos (links)
    
+   %% Wichtigste vollstaendige Funktionen
+   % sigmoid = SigmoidFunction(nice, x1, x2, y1, y2, bias)
+   % y = SigmoidFunction(y1, y2, x, bias)
+   
        % Moegliche Nutzungen von SigmoidFunction: (Aeusserere Aufrufe)
        % y = SigmoidFunction(x)
        % y = SigmoidFunction(x, bias)
@@ -34,6 +38,11 @@ function [sigmoid, y] = SigmoidFunction(nice, x1, x2, y1, y2, x, bias)
 %%% Ja koennen weggelassen werden aber dieser Kommetar bleibt stehen bis in
 %%% der Elter loescht ;)
  
+% default-Werte
+biasDefault = 0;
+x1Default = -12;
+x2Default = 12;
+
    %% Ab hier Unterscheidung je nach Anzahl der gegebenen Input- und Output-Werte   
    
    if nargin == 1  
@@ -45,7 +54,7 @@ function [sigmoid, y] = SigmoidFunction(nice, x1, x2, y1, y2, x, bias)
        % sigmoid = SigmoidFunction(nice) -> Innerer Aufruf
        if nargout == 1             
            x = nice;
-           bias = 0;
+           bias = biasDefault;
            sigmoid = 1./(1+exp(-(x+bias)));
        
        % Mit einem Input-Wert koennen nicht beide Output-Werte sinnvoll bedient werden
@@ -87,10 +96,10 @@ function [sigmoid, y] = SigmoidFunction(nice, x1, x2, y1, y2, x, bias)
                warning('Wert fuer "nice" wurde kleiner gleich 3 gewaehlt -> sehr geringe Aufloesung!');
            end
            
-           bias = 0;
+           bias = biasDefault;
            x = x1;
-           x1 = -12;
-           x2 = 12;
+           x1 = x1Default;
+           x2 = x2Default;
            y = 1./(1+exp(-(x+bias)));
            sigmoid = zeros(nice,1);
            j=1;
@@ -129,7 +138,7 @@ function [sigmoid, y] = SigmoidFunction(nice, x1, x2, y1, y2, x, bias)
                error('SigmoidFunction untere Grenze "x1" darf nicht gleich oberer Grenze "x2" sein!');
            end
            
-           bias = 0;
+           bias = biasDefault;
            sigmoid = zeros(nice,1);
            j=1;
            for i=linspace(x1, x2, nice)
@@ -145,8 +154,8 @@ function [sigmoid, y] = SigmoidFunction(nice, x1, x2, y1, y2, x, bias)
        elseif nargout == 2
            bias = x2;
            x = x1;
-           x1 = -12;
-           x2 = 12;
+           x1 = x1Default;
+           x2 = x2Default;
            sigmoid = zeros(nice,1);
            j=1;
            for i=linspace(x1, x2, nice)
@@ -202,7 +211,7 @@ function [sigmoid, y] = SigmoidFunction(nice, x1, x2, y1, y2, x, bias)
            
            y1 = bias; % Erste Zuweisung vor 'nargout == 1' rueckgaengig machen
            x = y1;
-           bias = 0; % default-Wert einstellen
+           bias = biasDefault; % default-Wert einstellen
            
            % Test ob nice-Wert eine ganze Zahl und groesser null ist
            if mod(nice, 1) ~= 0
@@ -260,7 +269,7 @@ function [sigmoid, y] = SigmoidFunction(nice, x1, x2, y1, y2, x, bias)
                error('Grenzen von SigmoidFunction falsch: da obere Grenze "y2" gleich unterer Grenze "y1" gewaehlt wurde!');
            end
            
-           bias = 0;
+           bias = biasDefault;
            sigmoid = zeros(nice,1);
            j=1;
            for i=linspace(x1, x2, nice)
@@ -351,7 +360,7 @@ function [sigmoid, y] = SigmoidFunction(nice, x1, x2, y1, y2, x, bias)
        elseif nargout == 2
            
            % default bias setzten
-           bias = 0;
+           bias = biasDefault;
            % y & sigmoid fuer nachfolgende Skalierung erzeugen
            y = 1/(1+exp(-(x+bias))); 
            sigmoid = zeros(nice,1);

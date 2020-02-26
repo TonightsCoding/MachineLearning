@@ -3,7 +3,6 @@ clear all, close all
 %% diese Varianten folgend angegeben: 
 
 %% Anzahl Input(s)
-
 %     % Anzahl Output(s)
 %     % Funktionsrumpf
 %     % Variablen fuer Anpassungen
@@ -23,20 +22,16 @@ bias = 0;
 % Anzahl der Outputs unterschieden
 
 %% 1 Input
-
 % 1 Output
 % y = SigmoidFunction(x)
 y = SigmoidFunction(x);
 disp(y);
 
-
 %% 2 Inputs
-
 % 1 Output
 % y = SigmoidFunction(x, bias)
 y = SigmoidFunction(x, bias);
 disp(y);
-
 % 2 Outputs
 % [sigmoid, y] = SigmoidFunction(nice, x)
 % nice = 15;
@@ -51,7 +46,6 @@ plot(t, sigmoid);
 title(['2 Inputs "nice, x" -> 2 Outputs "sigmoid, y = ',num2str(y),'"']);
 
 %% 3 Inputs
-
 % 1 Output
 % sigmoid = SigmoidFunction(nice, x1, x2)
 % nice = 15;
@@ -64,7 +58,6 @@ figure
 hold on
 plot(t, sigmoid);
 title('3 Inputs "nice, x1, x2" -> 1 Output "sigmoid"');
-
 % 2 Outputs
 % [sigmoid, y] = SigmoidFunction(nice, x, bias)
 % nice = 15;
@@ -80,12 +73,10 @@ plot(t, sigmoid);
 title(['3 Inputs "nice, x, bias" -> 2 Outputs "sigmoid, y = ',num2str(y),'"']);
 
 %% 4-Inputs
-
 % 1-Outputs
 % y = SigmoidFunction(y1, y2, x, bias)
 y = SigmoidFunction(0, 1, 0, 0);
 disp(y);
-
 % 2-Outputs
 % [sigmoid, y] = SigmoidFunction(nice, x1, x2, x)
 % nice = 15;
@@ -102,7 +93,6 @@ plot(t, sigmoid);
 title(['4 Inputs "nice, x1, x2, x" -> 2 Outputs "sigmoid, y = ',num2str(y),'"']);
 
 %% 5-Inputs
-
 % 1 Output
 % sigmoid = SigmoidFunction(nice, x1, x2, y1, y2)
 % nice = 30;
@@ -117,7 +107,6 @@ figure
 hold on
 plot(t, sigmoid);
 title('5 Inputs "nice, x1, x2, y1, y2" -> 1 Output "sigmoid"');
-
 % 2 Outputs
 % [sigmoid, y] = SigmoidFunction(nice, x1, x2, x, bias)
 % nice = 30;
@@ -135,7 +124,6 @@ plot(t, sigmoid);
 title(['5 Inputs "nice, x1, x2, x, bias" -> 2 Outputs "sigmoid, y = ',num2str(y),'"']);
 
 %% 6-Inputs
-
 % 1 Output
 % sigmoid = SigmoidFunction(nice, x1, x2, y1, y2, bias)
 % nice = 30;
@@ -151,7 +139,6 @@ figure
 hold on
 plot(t, sigmoid);
 title('6 Inputs "nice, x1, x2, y1, y2, bias" -> 1 Output "sigmoid"');
-
 % 2 Outputs
 % [sigmoid, y] = SigmoidFunction(nice, x1, x2, y1, y2, x)
 % nice = 30;
@@ -170,7 +157,6 @@ plot(t, sigmoid);
 title(['6 Inputs "nice, x1, x2, y1, y2, x" -> 2 Outputs "sigmoid, y = ',num2str(y),'"']);
 
 %% 7-Inputs
-
 % 1 Output
 % y = SigmoidFunction(nice, x1, x2, y1, y2, x, bias)
 % nice = 30;
@@ -182,7 +168,6 @@ title(['6 Inputs "nice, x1, x2, y1, y2, x" -> 2 Outputs "sigmoid, y = ',num2str(
 % bias = 0;
 y = SigmoidFunction(nice, x1, x2, y1, y2, x, bias);
 disp(y);
-
 % 2 Outputs
 % [sigmoid, y] = SigmoidFunction(nice, x1, x2, y1, y2, x, bias)
 % nice = 30;
