@@ -1,31 +1,36 @@
 close all, clear all
 
-% globale Variablen
+% Parameter fuer
 pixelCnt = 8;               % Anzahl der Pixel in x-Richtung pro Merkmal - mindestens 1
 featureCnt = 5;             % Anzahl der Merkmale in x-Richtung - mindestens 1
-bias = -1;                  % Verschiebung in x-Richtung -> Neg (rechts), Pos (links)
-noise = 50;                 % Verrauschungsgrad zwischen 0 und 100%
-slope = 75;                 % Steigung der Aktivierungs-Funktion (gauss) [50]
-domainOfDefinition = 6;     % Gueltigkeitsbereich der Neuronenfunktion -> (+/- domainOfDefinition)
-threshold = 0.65;           % Auswertungsschwelle des Ergebnisses
 weightType = 'MulAdd';         % Typ der Gewichtsmatrix
-inFeatureType = 'Cross';    % Arten der Eingangs-Merkmale-Matrix 
-lowerBound = -1;            % (optional) Untere Grenze der Gewichts-Matrix (default = -1) 
-upperBound = 1;             % (optional) Obere Grenze der Gewichts-Matrix (default = 1)
+inFeatureType = 'Cal';    % Arten der Eingangs-Merkmale-Matrix 
+noise = 0;                 % Verrauschungsgrad zwischen 0 und 100%
+slope = 50;                 % Steigung der Aktivierungs-Funktion (gauss) [50]
+
+% Parameter fuer Aktivierungsfunktion
+bias = 0;                  % Verschiebung in x-Richtung -> Neg (rechts), Pos (links)
+threshold = 0.5;           % Auswertungsschwelle des Ergebnisses
+domainOfDefinition = 32;     % Gueltigkeitsbereich der Neuronenfunktion -> (+/- domainOfDefinition)
+
+% Parameter fuer Gewichtsmatrix
+lowerBound = -0.5;            % (optional) Untere Grenze der Gewichts-Matrix (default = -1) 
+upperBound = 0.5;             % (optional) Obere Grenze der Gewichts-Matrix (default = 1)
 
 % Erstellen der Eingangs-Merkmale-Matrix
 inputFeatureMatrix = GetInputFeatureMatrix(featureCnt, inFeatureType);
 
-% I1 = [0 0 1 0 0]; % Zeile 1
-% I2 = [0 0 1 0 0]; % Zeile 2
-% I3 = [1 1 1 1 1]; % Zeile 3
-% I4 = [0 0 1 0 0]; % Zeile 4
-% I5 = [0 0 1 0 0]; % Zeile 5
+I1 = [1 1 1 1 1]; % Zeile 1
+I2 = [1 1 1 1 1]; % Zeile 2
+I3 = [1 1 1 1 1]; % Zeile 3
+I4 = [1 1 1 1 1]; % Zeile 4
+I5 = [1 1 1 1 1]; % Zeile 5
 % inputFeatureMatrix = uint8([I1; I2; I3; I4; I5]);
 
 % Erstellen der Ausgangs-Merkmale-Matrix
 outputFeatureMatrix = zeros(5, 5); % Erstelle Merkmale-Ausgangs-Matrix
 outputFeatureMatrixDebug = zeros(5,5); % Erstelle Merkmale-Ausgangs-Matrix mit Summe aus Pixeln pro Merkmal
+outputFeatureMatrixDebug2 = zeros(5,5); % Erstelle Merkmale-Ausgangs-Matrix mit Summe aus Pixeln pro Merkmal
 
 % Erstellen der Gewichts-Matrix
 weightMatrix = GetWeights(pixelCnt, featureCnt, slope, weightType, lowerBound, upperBound); 
@@ -48,9 +53,15 @@ inputMatrix = (255 - inputPixelFeatureMatrix)/255;
 
 % Erstelle Plot der Sigmoidfunktion 
 subplot(2,2,3)
+hold on
 x = -domainOfDefinition:0.01:domainOfDefinition;
 y = SigmoidFunction(x, bias);
 plot(x,y)
+x_size = size(x);
+% line for bias
+%line([-domainOfDefinition domainOfDefinition],[SigmoidFunction(0, bias) SigmoidFunction(0, bias)], 'color', 'y')
+% line for threshold
+line([-domainOfDefinition domainOfDefinition],[threshold threshold], 'color', 'y')
 axis([x(1) x(end) min(y) max(y)])
 title('Sigmoidfunktion mit ausgewerteten Merkmalen')
 
@@ -78,7 +89,10 @@ for yi=1:1:(featureCnt)
       % Zeichne Merkmal in Sigmoidfunktion ein
       hold on
       subplot(2,2,3)
-      if outputFeatureMatrix(yi, xi) == inputFeatureMatrix(yi, xi)
+      if (sum(neuronNetTerms) == 0)
+         % Alle Eingangswerte des Neurons sind 0
+         plot(sum(neuronNetTerms), neuronOutput, '*', 'color', 'b')
+      elseif outputFeatureMatrix(yi, xi) == inputFeatureMatrix(yi, xi)
          % Merkmal richtig detektiert
          plot(sum(neuronNetTerms), neuronOutput, 'o', 'color', 'g')
       else
@@ -88,6 +102,7 @@ for yi=1:1:(featureCnt)
       
       % zum Debugging
       outputFeatureMatrixDebug(yi, xi) = sum(neuronNetTerms);
+      outputFeatureMatrixDebug2(yi, xi) = neuronOutput;
    end
 end
 
@@ -96,3 +111,7 @@ subplot(2,2,4)
 outputFeatureMatrix = GetPixelFeatureMatrix(pixelCnt, featureCnt, 0, outputFeatureMatrix, '');
 imshow(outputFeatureMatrix)
 title('Ausgangs-Merkmale-Matrix')
+
+% Debug-Ausgabe
+outputFeatureMatrixDebug(1:end, 1:end)
+outputFeatureMatrixDebug2(1:end, 1:end)

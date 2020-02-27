@@ -40,8 +40,13 @@ function inputFeatureMatrix = GetInputFeatureMatrix( featureCnt, type )
             feature = featureCnt/2;
             inputFeatureMatrix(1:featureCnt, feature:(feature+1)) = 1;
             inputFeatureMatrix(feature:(feature+1), 1:featureCnt) = 1;
+         % alle Merkmale auf 1
+         case 'Cal'
+            inputFeatureMatrix(1:featureCnt, 1:featureCnt) = 1;
+         case 'Cal_even'
+            inputFeatureMatrix(1:featureCnt, 1:featureCnt) = 1;
         otherwise 
-            error('Unbekannter Merkmaltyp! Bitte aus "Cross", "V_Line" oder "H_Line" waehlen');
+            error('Unbekannter Merkmaltyp! Bitte aus "Cross", "V_Line", "H_Line" oder "Cal" waehlen');
     end
     
     inputFeatureMatrix = uint8(inputFeatureMatrix);
