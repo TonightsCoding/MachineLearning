@@ -20,11 +20,7 @@ function [sigmoid, y] = SigmoidFunction(nice, x1, x2, y1, y2, x, bias)
        % [sigmoid, y] = SigmoidFunction(nice, x)
        % sigmoid = SigmoidFunction(nice, x1, x2)
        % [sigmoid, y] = SigmoidFunction(nice, x, bias)
-       
-       %% y = SigmoidFunction(y1, y2, x, bias) 
-       %%% Eventuell eher: sigmoid = SigmoidFunction(nice, x1, x2, bias)
-       % Unterscheidung durch Rueckgabetyp moeglich?
-       
+       % y = SigmoidFunction(y1, y2, x, bias) 
        % [sigmoid, y] = SigmoidFunction(nice, x1, x2, bias)
        % y = SigmoidFunction(x1, x2, y1, y2, x)
        % [sigmoid, y] = SigmoidFunction(nice, x1, x2, x, bias)
@@ -32,11 +28,6 @@ function [sigmoid, y] = SigmoidFunction(nice, x1, x2, y1, y2, x, bias)
        % [sigmoid, y] = SigmoidFunction(nice, x1, x2, y1, y2, x)
        % y = SigmoidFunction(nice, x1, x2, y1, y2, x, bias)
        % [sigmoid, y] = SigmoidFunction(nice, x1, x2, y1, y2, x, bias)
-       
-%%% Noch zu testen ob die ungenutzten default-Werte wirklich gesetzt
-%%% werden muessen... ist zum einarbeiten wahrscheinlich gut @(den Elter) :P
-%%% Ja koennen weggelassen werden aber dieser Kommetar bleibt stehen bis in
-%%% der Elter loescht ;)
  
 % default-Werte
 biasDefault = 0;
