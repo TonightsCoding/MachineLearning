@@ -1,4 +1,4 @@
-function [tanH, y] = TangensHFunction(nice, x1, x2, y1, y2, x, bias)
+function [tanH, y] = TangHFunction(nice, x1, x2, y1, y2, x, bias)
    % y - (optional) gibt einzelnen Wert im Punkt x zurueck
    % tanH - Vektor der Dimension (nice) mit den abgetasteten Funktionswerte
    
@@ -22,5 +22,6 @@ x1Default = -4;
 x2Default = 4;
 y1Default = -1;
 y2Default = 1;
+
 end
 
