@@ -1,14 +1,14 @@
-function [tangensH, y] = TangensHFunction(nice, x1, x2, y1, y2, x, bias)
+function [tanH, y] = TangensHFunction(nice, x1, x2, y1, y2, x, bias)
    % y - (optional) gibt einzelnen Wert im Punkt x zurueck
-   % tangensh - Vektor der Dimension (nice) mit den abgetasteten Funktionswerte
+   % tanH - Vektor der Dimension (nice) mit den abgetasteten Funktionswerte
    
-   % nice - Feinheit der Abtastung der Funktion, bestimmt Laenge von (tangensH) (Empfehlung >> 3)
-   % x1 - untere Grenze der Definitionsbreite (x-Werte) fuer Funktionswerte von (tangensH) (default: -4)
-   % x2 - obere Grenze der Definitionsbreite (x-Werte) fuer Funktionswerte von (tangensH) (default: 4)
-   % y1 - untere Grenze der Funktionswerte, gilt fuer y und/oder tangensH (y-Werte default: -1)
-   % y2 - obere Grenze der Funktionswerte, gilt fuer y und/oder tangensH (y-Werte default: 1)
+   % nice - Feinheit der Abtastung der Funktion, bestimmt Laenge von (tanH) (Empfehlung >> 3)
+   % x1 - untere Grenze der Definitionsbreite (x-Werte) fuer Funktionswerte von (tanH) (default: -4)
+   % x2 - obere Grenze der Definitionsbreite (x-Werte) fuer Funktionswerte von (tanH) (default: 4)
+   % y1 - untere Grenze der Funktionswerte, gilt fuer y und/oder tanH (y-Werte default: -1)
+   % y2 - obere Grenze der Funktionswerte, gilt fuer y und/oder tanH (y-Werte default: 1)
    % x - (optional) Variable fuer einzelnen Rueckgabewert der Funktion
-   % bias - (optional) Verschiebung in x-Richtung, gilt fuer y und/oder tangensH (default: 0) -> Neg (rechts), Pos (links)
+   % bias - (optional) Verschiebung in x-Richtung, gilt fuer y und/oder tanH (default: 0) -> Neg (rechts), Pos (links)
    
 %% Definitionsvarianten:
 % tanh(x)=sinh(x)/cosh(x);
