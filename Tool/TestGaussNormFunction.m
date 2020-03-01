@@ -11,7 +11,7 @@ clear all, close all
 %     Ausgabe beziehungsweise Veranschaulichung der Ergebnisse
 
 %% Variablen fuer alle Funktionen setzten
-nice = 30;
+nice = 300;
 x1 = -6;
 x2 = 6;
 y1 = 0;
@@ -41,7 +41,7 @@ disp(y);
 % 1 Output
 % y = GaussNormFunction(x, sigma)
 x21 = x;
-bias21 = bias;
+sigma21 = sigma;
 % x21 = 0;
 % bias21 = 0;
 y = GaussNormFunction(x21, sigma21);
@@ -146,10 +146,12 @@ disp(y);
 nice52 = nice;
 x152 = x1;
 x252 = x2;
+x52 = x;
 sigma52 = sigma;
 % nice52 = 30;
 % x152 = -6;
 % x252 = 6;
+% x52 = 0;
 % sigma52 = 1;
 [gauss, y] = GaussNormFunction(nice52, x152, x252, x52, sigma52);
 disp(gauss);
@@ -262,7 +264,7 @@ x181 = x1;
 x281 = x2;
 y181 = y1;
 y281 = y2;
-x82 = x;
+x81 = x;
 sigma81 = sigma;
 mue81 = mue;
 % nice81 = 30;

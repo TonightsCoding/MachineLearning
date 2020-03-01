@@ -407,7 +407,7 @@ x2Default = 12;
            % beruecksichtigt werden bzw. fuer y keine Rolle spielen
            y = SigmoidFunction(y1, y2, x, bias);
            
-           % gleich zu (6 Inputs -> 1 Output) da x nicht sigmoid keine Rolle spielt
+           % gleich zu (6 Inputs -> 1 Output) da x in sigmoid keine Rolle spielt
            sigmoid = SigmoidFunction(nice, x1, x2, y1, y2, bias);           
        end
           
