@@ -11,7 +11,7 @@ clear all, close all
 %     Ausgabe beziehungsweise Veranschaulichung der Ergebnisse
 
 %% Variablen fuer alle Funktionen setzten
-nice = 300;
+nice = 30;
 x1 = -6;
 x2 = 6;
 y1 = 0;
@@ -295,7 +295,7 @@ mue82 = mue;
 % x82 = 0;
 % sigma82 = 1;
 % mue82 = 0;
-[gauss, y] = GaussNormFunction(nice82, x182, x282, y182, y282, x2, sigma82, mue82);
+[gauss, y] = GaussNormFunction(nice82, x182, x282, y182, y282, x82, sigma82, mue82);
 disp(gauss);
 disp(y); 
 t = linspace(x182, x282, nice82);

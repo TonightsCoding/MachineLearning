@@ -133,15 +133,16 @@ sigmaDefault = 1;
            x = x2;
            y2 = x1;
            y1 = nice;
-           if y2 < y1
-               error('Grenzen von GaussNormFunction vertauscht da obere Grenze "y2" kleiner als untere Grenze "y1" gewaehlt wurde!');
-           elseif y2 == y1
-               error('Grenzen von GaussNormFunction falsch: da obere Grenze "y2" gleich unterer Grenze "y1" gewaehlt wurde!');
-           end
+           
            y = GaussNormFunction(x, sigma, mue);
            if y1 == 0 && y2 == 0
                gauss = y;
            else
+               if y2 < y1
+                   error('Grenzen von GaussNormFunction vertauscht da obere Grenze "y2" kleiner als untere Grenze "y1" gewaehlt wurde!');
+               elseif y2 == y1
+                   error('Grenzen von GaussNormFunction falsch: da obere Grenze "y2" gleich unterer Grenze "y1" gewaehlt wurde!');
+               end
                maxGauss = (1/(sqrt(2*pi).*sigma))*exp(-(0)/(2.*sigma.^2));
                y = y./maxGauss; % auf 0..1 normieren
                if y1 == 0
@@ -156,7 +157,7 @@ sigmaDefault = 1;
                end
                gauss = y;
            end
-           gauss = y;
+           
        % 2 Outputs
        elseif nargout == 2
        % 2:5  % [gauss, y] = GaussNormFunction(nice, x1, x2, x, sigma) 
@@ -176,10 +177,15 @@ sigmaDefault = 1;
        % 2 Outputs
        elseif nargout == 2
        % 2:6  % [gauss, y] = GaussNormFunction(nice, x1, x2, x, sigma, mue) 
+           % mue = x;
+           % sigma = y2;
+           % x = y1;
+           % y = GaussNormFunction(y1, y2, x, sigma, mue);
+           % y = GaussNormFunction(nice, x1, x2, x, sigma);
            mue = x;
            sigma = y2;
            x = y1;
-           y = GaussNormFunction(y1, y2, x, sigma, mue);
+           y = GaussNormFunction(0, 0, x, sigma, mue);
            gauss = GaussNormFunction(nice, x1, x2, 0, 0, sigma, mue);            
        end
        
