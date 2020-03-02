@@ -6,7 +6,7 @@ featureCnt = 5;             % Anzahl der Merkmale in x-Richtung - mindestens 1
 weightType = 'AddMul';         % Typ der Gewichtsmatrix ('Add', 'AddMul' & 'Mul')
 inFeatureType = 'Cross';    % Arten der Eingangs-Merkmale-Matrix ((default)'Cross', 'V_Line', 'H_Line' & 'Cal') 
 noise = 40;                 % Verrauschungsgrad zwischen 0 und 100%
-slope = 70;                 % Steigung der Aktivierungs-Funktion (gauss) [50]
+slope = 75;                 % Steigung der Aktivierungs-Funktion (gauss) [50]
 
 % Parameter fuer Aktivierungsfunktion
 bias = 0;                  % Verschiebung in x-Richtung -> Neg (rechts), Pos (links)

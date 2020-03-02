@@ -1,7 +1,7 @@
 function inputFeatureMatrix = GetInputFeatureMatrix( featureCnt, type )
 %GetInputFeatureMatrix Erzeugt die Eingangs-Merkmale-Matrix (featureCnt x featureCnt)
     % featureCnt - Anzahl der Merkmale
-    % Art der Eingangs-Merkmale ((default)'Cross', 'V_Line' und 'H_Line')
+    % Art der Eingangs-Merkmale ((default)'Cross', 'V_Line', 'H_Line' & 'Cal')
 
     if (nargin < 2) % default ('Cross') vorgeben
         type = 'Cross';

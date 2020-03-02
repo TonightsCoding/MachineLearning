@@ -48,8 +48,8 @@ x2Default = 6;
 mueDefault = 0;
 sigmaDefault = 1;
 
-   %% Ab hier Unterscheidung je nach Anzahl der gegebenen Input- und Output-Werte   
-   % y = (1/(sqrt(2*pi).*sigma))*exp(-((x-mue).^2)/(2.*sigma.^2))
+   %% Ab hier Unterscheidung je nach Anzahl der gegebenen Input- und Output-Werte 
+   
    if nargin == 1
        %% 1 Input-Wert gegeben
        % 1 Output
