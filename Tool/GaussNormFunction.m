@@ -11,7 +11,7 @@ function [gauss, y] = GaussNormFunction(nice, x1, x2, y1, y2, x, sigma, mue)
    % x2 - obere Grenze der Definitionsbreite (x-Werte) fuer Funktionswerte von (gauss) (default: 6)
    % y1 - untere Grenze der Funktionswerte, gilt fuer y und/oder gauss 
    % y2 - obere Grenze der Funktionswerte, gilt fuer y und/oder gauss 
-   % wenn y1 && y2 == 0 wird keine Skalierung vor genehmen
+   % wenn y1 && y2 == 0 wird keine Skalierung vorgenommen
    % x - (optional) Variable fuer einzelnen Rueckgabewert der Funktion
    % sigma - Standardabweichung, beeinflusst den Grad der Zentrierung bzw. Steilheit von gauss (default: 1)
    % mue - (optional) Verschiebung in x-Richtung, gilt fuer y und/oder gauss (default: 0) -> Neg (rechts), Pos (links)
