@@ -1,4 +1,4 @@
-function [weights, vWeightMatrix, hWeightMatrix] = GetWeights(pixelCnt, featureCnt, slope, type, lower, upper)
+function [weights, vWeightMatrix, hWeightMatrix] = GetGaussWeights(pixelCnt, featureCnt, slope, type, lower, upper)
    % weights - Rueckgabe der Gewichtsmatrix
    % pixelCnt - Anzahl der Pixel pro Merkmal
    % featureCnt - Anzahl der Merkmale
@@ -23,7 +23,7 @@ function [weights, vWeightMatrix, hWeightMatrix] = GetWeights(pixelCnt, featureC
    vN = pixelCnt * featureCnt;
    hN = pixelCnt * featureCnt;
    sigma = -0.0019*(slope - 1) + 0.2;
-   GaussFunction = @(x, s, x0)(1/(sqrt(2*pi).*s))*exp(-((x-x0).^2)/(2.*s.^2));
+   %GaussFunction = @(x, s, x0)(1/(sqrt(2*pi).*s))*exp(-((x-x0).^2)/(2.*s.^2));
 
    % Einteilung bestimmen
    v = linspace(-0.3,0.3,vN);
@@ -31,8 +31,8 @@ function [weights, vWeightMatrix, hWeightMatrix] = GetWeights(pixelCnt, featureC
 
    % 2 Gaussfunktionen mit festem Sigma im Raum
    % Sigma zwischen 0.01 und 0.2 waehlen
-   vGauss = GaussFunction(v, sigma, 0); % x-Achse, v-Balken
-   hGauss = GaussFunction(h, sigma, 0); % y-Achse, h-Balken
+   vGauss = GaussNormFunction(v, sigma, 0); % x-Achse, v-Balken
+   hGauss = GaussNormFunction(h, sigma, 0); % y-Achse, h-Balken
 
    % initiale Gewichts-Matrix erstellen
    vWeightMatrix = zeros(hN, vN);
@@ -53,16 +53,23 @@ function [weights, vWeightMatrix, hWeightMatrix] = GetWeights(pixelCnt, featureC
    tempWeightMatrix = zeros(hN, vN);
 
    % fuer (type == MulAdd) zusaetzliche Matrix erzeugen
-   if strcmp(type, 'AddMul')
+   if strcmp(type, 'AddMul') || strcmp(type, 'AddMul2')
      addMulWeightMatrix = zeros(hN, vN);
    end
 
    % Unterscheidung in for-Schleife je nach Art der Ueberlagerung (weightType)
    
-   if strcmp(type, 'Mul')
+   if strcmp(type, 'Mul1')
       for i = 1:vN
          tempWeightMatrix(1:end, i) = vWeightMatrix(1:end, i) .* (hGauss./max(hGauss))';
          tempWeightMatrix(1:end, i) = tempWeightMatrix(1:end, i) .* 2 - 1;
+      end
+   elseif strcmp(type, 'Mul2')
+      for i = 1:vN
+         % skalieren auf -1 bis 1
+         vWeightMatrix(1:end, i) = vWeightMatrix(1:end, i) .* 2 - 1;
+         % v-Gauss und h-Gauss multiplizieren
+         tempWeightMatrix(1:end, i) = vWeightMatrix(1:end, i) .* ((hGauss./max(hGauss)) * 2 - 1)';
       end
    elseif strcmp(type, 'Add')
       for i = 1:vN
@@ -79,6 +86,20 @@ function [weights, vWeightMatrix, hWeightMatrix] = GetWeights(pixelCnt, featureC
          tempWeightMatrix(1:end, i) = tempWeightMatrix(1:end, i) - addMulWeightMatrix(1:end, i);
          % skalieren
          tempWeightMatrix(1:end, i) = tempWeightMatrix(1:end, i) .* 2 - 1;
+      end
+   elseif strcmp(type, 'AddMul2')
+      for i = 1:vN
+         % skalieren auf -1 bis 1
+         vWeightMatrix(1:end, i) = vWeightMatrix(1:end, i) .* 2 - 1;
+         % v-Gauss und h-Gauss multiplizieren
+         addMulWeightMatrix(1:end, i) = (vWeightMatrix(1:end, i) .* ((hGauss./max(hGauss)) * 2 - 1)') - 1;
+         % v-Gauss und h-Gauss addieren
+         %tempWeightMatrix(1:end, i) = (vWeightMatrix(1:end, i) + ((hGauss./max(hGauss)) * 2 - 1)') - 1;
+         % mittlere Erhoehung entfernen
+         %tempWeightMatrix(1:end, i) = tempWeightMatrix(1:end, i) - addMulWeightMatrix(1:end, i);
+         % skalieren
+         %tempWeightMatrix(1:end, i) = tempWeightMatrix(1:end, i) .* 2 - 1;
+         tempWeightMatrix(1:end, i) = addMulWeightMatrix(1:end, i);
       end
    else
       error('Weighttype for generation unknown, use Mul, Add or AddMul')
