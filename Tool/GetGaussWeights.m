@@ -101,6 +101,11 @@ function [weights, vWeightMatrix, hWeightMatrix] = GetGaussWeights(pixelCnt, fea
          %tempWeightMatrix(1:end, i) = tempWeightMatrix(1:end, i) .* 2 - 1;
          tempWeightMatrix(1:end, i) = addMulWeightMatrix(1:end, i);
       end
+   elseif strcmp(type, 'Special')
+      weightMatrix1 = GetGaussWeights(pixelCnt, featureCnt, 45, 'Mul2', -2, 2);
+      weightMatrix2 = GetGaussWeights(pixelCnt, featureCnt, 70, 'AddMul', -2, 2);
+      weightMatrix3 = GetGaussWeights(pixelCnt, featureCnt, 45, 'Mul1', -2, 2);
+      tempWeightMatrix = weightMatrix1 + weightMatrix2 - weightMatrix3 - 1;
    else
       error('Weighttype for generation unknown, use Mul, Add or AddMul')
    end
