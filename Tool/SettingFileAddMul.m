@@ -4,19 +4,19 @@ close all, clear all
 % Parameter fuer
 pixelCnt = 8;               % Anzahl der Pixel in x-Richtung pro Merkmal - mindestens 1
 featureCnt = 5;             % Anzahl der Merkmale in x-Richtung - mindestens 1
-weightType = 'Special';         % Typ der Gewichtsmatrix ('Add', 'AddMul' & 'Mul')
+weightType = 'AddMul';         % Typ der Gewichtsmatrix ('Add', 'AddMul' & 'Mul')
 inFeatureType = 'Cross';    % Arten der Eingangs-Merkmale-Matrix ((default)'Cross', 'V_Line', 'H_Line' & 'Cal') 
 noise = 50;                 % Verrauschungsgrad zwischen 0 und 100%
-slope = 30;                 % Steigung der Aktivierungs-Funktion (gauss) [50]
+slope = 60;                 % Steigung der Aktivierungs-Funktion (gauss) [50]
 
 % Parameter fuer Aktivierungsfunktion
-bias = -13;                  % Verschiebung in x-Richtung -> Neg (rechts), Pos (links)
-threshold = 0.35;           % Auswertungsschwelle des Ergebnisses
+bias = 0;                  % Verschiebung in x-Richtung -> Neg (rechts), Pos (links)
+threshold = 0.85;           % Auswertungsschwelle des Ergebnisses
 domainOfDefinition = 50;     % Gueltigkeitsbereich der Neuronenfunktion -> (+/- domainOfDefinition)
 
 % Parameter fuer Gewichtsmatrix
-lowerBound = -0.5;            % (optional) Untere Grenze der Gewichts-Matrix (default = -1) 
-upperBound = 0.5;             % (optional) Obere Grenze der Gewichts-Matrix (default = 1)
+lowerBound = -0.7;            % (optional) Untere Grenze der Gewichts-Matrix (default = -1) 
+upperBound = 0.3;             % (optional) Obere Grenze der Gewichts-Matrix (default = 1)
 
 %% Grundeinstellungen
 % Erstellen der Eingangs-Merkmale-Matrix
@@ -122,8 +122,8 @@ outputFeatureMatrixDebug2(1:end, 1:end)
 figure
 %% Zweite Neuronen Ebene - Auswertung h-Balken
 % Parameter
-domainOfDefinition = 150;
-bias = -60;
+domainOfDefinition = 100;
+bias = -33;
 threshold = 0.5;
 row = 3;
 
@@ -148,8 +148,8 @@ end
 
 %% Zweite Neuronrn Ebende - Auswertung v-Balken
 % Parameter
-domainOfDefinition = 150;
-bias = -60;
+domainOfDefinition = 100;
+bias = -33;
 threshold = 0.5;
 column = 3;
 
@@ -174,8 +174,8 @@ end
 
 %% Zweite Neuronen Ebende - Auswertung Error-Field - Nicht generisch
 % Parameter
-domainOfDefinition = 150;
-bias = 11;
+domainOfDefinition = 100;
+bias = 22;
 threshold = 0.5;
 
 errorField1 = ConvMatrixToColumn(outputFeatureMatrixDebug(1:2, 1:2));
