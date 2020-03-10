@@ -1,7 +1,7 @@
 close all, clear all
 
 % Feinheit fuer alle Functions einstellen
-nice = 100;
+nice = 1000;
 
 % Default-Werte aller Functions
 x1TanHDefault = -4;
@@ -20,8 +20,8 @@ mueGaussDefault = 0;
 aLinDefault = 1;
 x1LinDefault = -6;
 x2LinDefault = 6; 
-xyminLinDefault = -3;
-xymaxLinDefault = 3;
+xyminLinDefault = -1;
+xymaxLinDefault = 1;
 y1LinDefault = -1; 
 y2LinDefault = 1; 
 biasDefault = 0;
@@ -104,8 +104,8 @@ saveas(gaussBild, ['Function_', functionType, '.eps']);
 aLin = 1;
 x1Lin = -6;
 x2Lin = 6;
-xyminLin = -3;
-xymaxLin = 3;
+xyminLin = -1;
+xymaxLin = 1;
 y1Lin = -1; 
 y2Lin = 1; 
 bias = 0;
