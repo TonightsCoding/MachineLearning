@@ -5,8 +5,8 @@ close all, clear all
 pixelCnt = 8;               % Anzahl der Pixel in x-Richtung pro Merkmal - mindestens 1
 featureCnt = 5;             % Anzahl der Merkmale in x-Richtung - mindestens 1
 weightType = 'AddMul';         % Typ der Gewichtsmatrix ('Add', 'AddMul' & 'Mul')
-inFeatureType = 'H_Line';    % Arten der Eingangs-Merkmale-Matrix ((default)'Cross', 'V_Line', 'H_Line' & 'Cal') 
-noise = 60;                 % Verrauschungsgrad zwischen 0 und 100%
+inFeatureType = 'Cross';    % Arten der Eingangs-Merkmale-Matrix ((default)'Cross', 'V_Line', 'H_Line' & 'Cal') 
+noise = 80;                 % Verrauschungsgrad zwischen 0 und 100%
 slope = 60;                 % Steigung der Aktivierungs-Funktion (gauss) [50]
 
 % Parameter fuer Aktivierungsfunktion
@@ -40,7 +40,7 @@ weightMatrix = GetGaussWeights(pixelCnt, featureCnt, slope, weightType, lowerBou
 
 
 %% Erstelle Plot der Gewichts-Matrix
-figure
+bild1 = figure;
 hold on
 subplot(2,2,1)
 mesh(weightMatrix)
@@ -119,7 +119,7 @@ title('Ausgangs-Merkmale-Matrix')
 outputFeatureMatrixDebug(1:end, 1:end)
 outputFeatureMatrixDebug2(1:end, 1:end)
 
-figure
+bild2 = figure;
 %% Zweite Neuronen Ebene - Auswertung h-Balken
 % Parameter
 domainOfDefinition = 100;
