@@ -3,7 +3,7 @@ close all, clear all
 pixelCnt = 8;               % Anzahl der Pixel in x-Richtung pro Merkmal - mindestens 1
 featureCnt = 5;             % Anzahl der Merkmale in x-Richtung - mindestens 1
 slope = 75;                 % Steigung der Aktivierungs-Funktion (gauss) [50]
-weightType = 'Mul2';         % Typ der Gewichtsmatrix
+weightType = 'Add';         % Typ der Gewichtsmatrix
 lowerBound = -1;            % (optional) Untere Grenze der Gewichts-Matrix (default = -1) 
 upperBound = 1;             % (optional) Obere Grenze der Gewichts-Matrix (default = 1)
 
@@ -28,3 +28,5 @@ mesh(weightMatrix)
 title(['Ergebnis Gewichtsmatrix mit "',weightType,'"'])
 
 saveas(bild1, strcat('Endergebnis_Gewichtsmatrix_Slope_', int2str(slope), '_Type_', weightType, '.png'));
+saveas(bild1, strcat('Endergebnis_Gewichtsmatrix_Slope_', int2str(slope), '_Type_', weightType, '.pdf'));
+saveas(bild1, strcat('Endergebnis_Gewichtsmatrix_Slope_', int2str(slope), '_Type_', weightType, '.eps'));
