@@ -13,7 +13,7 @@ clear all, close all
 %% Variablen fuer alle Funktionen setzten
 nice = 30;
 x1 = 0;
-x2 = 12;
+x2 = 10;
 y1 = 0;
 y2 = 1;
 x = 1;
