@@ -36,6 +36,7 @@ functionType = 'TangensHyperbolicus';
 
 tanHBild = figure;
 plot(xAxis, tanH);
+grid on
 title(['Function (', functionType,')']);
 
 % Bild in unterschiedlichen Formaten speichern
@@ -54,6 +55,7 @@ functionType = 'Rayleigh';
 
 rayBild = figure;
 plot(xAxis, ray);
+grid on
 title(['Function (', functionType,')']);
 
 % Bild in unterschiedlichen Formaten speichern
@@ -71,6 +73,7 @@ functionType = 'Sigmoid';
 
 sigBild = figure;
 plot(xAxis, sig);
+grid on
 title(['Function (', functionType,')']);
 
 % Bild in unterschiedlichen Formaten speichern
@@ -92,6 +95,7 @@ functionType = 'Gauss';
 
 gaussBild = figure;
 plot(xAxis, gauss);
+grid on
 title(['Function (', functionType,')']);
 
 % Bild in unterschiedlichen Formaten speichern
@@ -102,8 +106,8 @@ saveas(gaussBild, ['Function_', functionType, '.eps']);
 % 5. Function: Linear 
 % Parameter
 aLin = 1;
-x1Lin = -6;
-x2Lin = 6;
+x1Lin = -3;
+x2Lin = 3;
 xyminLin = -1;
 xymaxLin = 1;
 y1Lin = -1; 
@@ -115,6 +119,7 @@ functionType = 'Linear';
 
 linBild = figure;
 plot(xAxis, lin);
+grid on
 title(['Function (', functionType,')']);
 
 % Bild in unterschiedlichen Formaten speichern
