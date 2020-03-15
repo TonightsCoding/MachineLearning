@@ -6,7 +6,7 @@ pixelCnt = 8;               % Anzahl der Pixel in x-Richtung pro Merkmal - minde
 featureCnt = 5;             % Anzahl der Merkmale in x-Richtung - mindestens 1
 weightType = 'AddMul';         % Typ der Gewichtsmatrix ('Add', 'AddMul' & 'Mul')
 inFeatureType = 'V_Line';    % Arten der Eingangs-Merkmale-Matrix ((default)'Cross', 'V_Line', 'H_Line' & 'Cal') 
-noise = 60;                 % Verrauschungsgrad zwischen 0 und 100%
+noise = 40;                 % Verrauschungsgrad zwischen 0 und 100%
 slope = 60;                 % Steigung der Aktivierungs-Funktion (gauss) [50]
 
 % Parameter fuer Aktivierungsfunktion

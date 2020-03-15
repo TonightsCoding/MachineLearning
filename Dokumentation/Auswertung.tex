@@ -1,9 +1,13 @@
 \newpage
 \section{Auswertung}
+Für die Auswertung haben wir haben zwei von den vorgestellten Gewichtsmatrizen untersucht. Wir haben uns für die Gewichtsmatrizen 'AddMul' und 'Special' entschieden. Um reproduzierbare Ergebnisse liefern zu können, haben wir aus der 'main.m' zwei Dateien abgeleitet in denen die Konfigurationen der nachfolgenden Bilder hinterlegt sind. Die beiden Dateien heißen 'SettingFileAddMul.m' und 'SettingFileSpecial.m'. Beide Systeme wurde empirisch eingestellt und es wurde versucht ab 50\% Rauschen keine vernünftigen Ergebnisse mehr zu liefern. Außerdem wurden die Bias-Werte und Threshold-Werte voreingestellt.
+
+Als nächstes soll für ein Beispiel besprochen werden, wie die Grafiken zu lesen sind. Dafür benutzen wir die Abbildungen \ref{AddMul_H_40_1} und \ref{AddMul_H_40_2} heran. Untersucht wurde die AddMul-Gewichtsmatrix mit horizontalen Balken. Der Rauschwert ist auf 40\% eingestellt. Die Farbe der eingezeichneten Punkte gibt an, ob das jeweilige Merkmal richtig detektiert wurde oder nicht. In Abbildung \ref{AddMul_H_40_1} sehen wir das Ergebnis der ersten Neuronen Ebene. In der Sigmoid-Grafik sind 25 grüne Punkte eingezeichnet. Es sind also alle Merkmale richtig detektiert worden. An dieser Stelle werden die addierten Werte der einzelnen Pixel auf eine Sigmoid-Funktion gegeben und grafisch ausgewertet.
+
+In Abbildung \ref{AddMul_H_40_2} ist die zweite Neuronen-Ebene dargestellt. In jeder Grafik ist jeweils ein Punkt eingezeichnet. In der Grafik der 'h-Balken Detektion' ist ein grüner Punkt eingezeichnet, d.h. es wurde ein 'h-Balken' detektiert. In der Grafik der 'v-Balken Detektion' ist ein roter Punkt eingezeichnet, d.h. es wurde kein 'v-Balken' detektiert. Die letzte Grafik der zweiten Neuronen Ebene ist die 'Fehler Detektion'. In diesem Fall ist der Punkt grün, also wurde keinen Fehler detektiert. Die 'Fehler Detektion' soll angeben, wenn der voreingestellte Rauschwert überschritten wurde. Es ist zu beachten, dass die Werte aus der ersten Ebene nicht mit der Sigmoid-Funktion bearbeitet wurden, sondern lediglich mit einer linearen Aktivierungsfunktion mit dem Anstieg 1, d.h. die addierten Werte der Pixel pro Merkmal werden direkt weitergereicht.  
 
 \newpage
 \subsection{AddMul Gewichtsmatrix}
-bias -8
 \subsubsection{H-Balken}
 \begin{figure}[hbt]
 	\begin{minipage}{0.8 \textwidth}

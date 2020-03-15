@@ -1,4 +1,4 @@
-\section{Gewichtsmatrizen}
+\section{Gewichtsmatrizen} \label{gewichtsmatrizenSection}
 In diesem Abschnitt werden verschiedene Gewichtsmatrizen vorgestellt und wie wir sie erzeugt haben. Wir haben uns erst einmal auf die Erzeugung mit der Gauß-Funktion konzentriert. Es sind auch andere Funktionen möglich, wie zum Beispiel die Rayleigh-Funktion. Aus zeitlichen Gründen mussten wie darauf leider verzichten.
 
 Zuerst soll gezeigt werden, wie die Gewichtsmatrizen grob erstellt wurden. Dafür werden im Abschnitt \ref{eGew} 3 Beispiele mit jeweils einem Slope von 75 gezeigt. Es soll außerdem verdeutlicht werden, dass es sich immer nur um einen Gauß in x- und y-Richtung handelt. Des Weiteren ist das Endergebnis immer zwischen -1 und 1. So können wir später den Ergebnisbereich besser skalieren.
@@ -177,3 +177,5 @@ In Abbildung \ref{Mul275} wurde der 3D-Gauß in der einen y-Richtung erst einmal
 	\caption{Spezielle Überlagerung mit Slope von 100}
 	\label{Spez100}
 \end{figure}
+
+Bei der Speziellen Gewichtsmatrix hat der Slope keine Auswirkungen. Das war viel mehr ein Versuch, die Auswirkung von erhöhten Gewichten in den Randbereichen zu untersuchen. Aus diesen Grund wurde sie empirisch ermittelt aus den Typen: 'Mul1', 'Mul2' und 'AddMul'.

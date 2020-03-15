@@ -1,0 +1,137 @@
+\newpage
+\section{Das Matlab Tool}
+
+Dieser Abschnitt soll dazu dienen, die Matlab-Skripte besser verstehen zu können. Es soll keine komplette Anleitung sein, aber die wichtigsten Zusammenhänge darstellen und Erfahrungswerte darlegen. In diesem Projekt sind viele Zeile Code in Matlab geschrieben worden. Es sollte erreicht werden, dass der Aufbau der einzelnen Dateien möglichst generisch ist. Die Entwicklung hat mithilfe von GitHub stattgefunden. Darüber können auch die Skripte und Dokumentation heruntergeladen werden.
+
+
+\subsection{Modulübersicht}
+Die Matlab-Skripte können in Kategorien eingeteilt werden. Die folgende Übersicht soll darüber Aufschluss geben. 
+
+\begin{itemize}
+	\item Ablauf und Einstellungen:
+	
+	In diesen Dateien werden alle benötigten Module aufgerufen. In 'main.m' ist der komplette Ablauf hinterlegt. Für eine bessere Reproduzierbarkeit haben wir zwei weitere Dateien angelegt, in denen wir Grundeinstellungen getroffen haben für Gewichtsmatrizen, die wir in der Dokumentation auswerten.
+	
+	\begin{itemize}
+		\item main.m
+		\item SettingFileAddMul.m
+		Einstellungen für die Gewichts-Matrix 'AddMul'.
+		
+		\item SettingFileSpecial.m
+		Einstellungen für die Gewichts-Matrix 'Special'.
+		
+	\end{itemize}
+	
+	\item Module:
+	
+	In dieser Auflistung werden alle relevanten Module gezeigt, welche für die Grundfunktionen verantwortlich sind.
+	
+	\begin{itemize}
+		\item GetPixelFeatureMatrix.m
+		Diesem Modul wird eine Merkmale-Matrix übergeben und das Modul skaliert dann die Merkmale-Matrix auf eine Pixel-Matrix. Außerdem kann dem Modul ein Rauschwert zwischen 0\% und 100\% übergeben werden, um die Bilder mit Rauschen zu versehen. Das Modul gibt die Pixel-Matrix zurück und kann die erzeugten Bilder auch gleich als Datei speichern.
+		
+		\item GetNeuronOutput.m
+		Dieses Modul ist das eigentliche Neuron. Es müssen als Parameter die Eingangszustände und Gewichte übergeben werden. Es berechnet anschließend über die Aktivierungsfunktion das Ergebnis. Es werden darüber hinaus auch Zwischenergebnisse zurückgegeben.
+		
+		\item GetInputFeatureMatrix.m
+		Dieses Modul gibt vordefinierte Merkmale-Matrizen zurück, die wir häufig verwendet haben.
+		
+		\item GetGaussWeights.m
+		Dieses Modul gibt eine Gewichts-Matrix zurück. Welche hinterlegt sind kann im Abschnitt \ref{gewichtsmatrizenSection} nachgeschaut werden.
+		
+		\item GetFeatureOfMatrix.m
+		Diesem Modul kann eine Pixel-Matrix übergeben werden und gibt eine Merkmale-Matrix zurück.
+		
+		\item ConvMatrixToColumn.m
+		Das Modul konvertiert eine Merkmale-Matrix in einen Spaltenvektor.
+		
+	\end{itemize}
+	
+	\item Funktionen:
+	
+	Diese Funktionen wurden von uns implementiert. Im akutellen Stand wurde allerdings nur die Gauß- und Sigmoid-Funktion verwendet.
+	
+	\begin{itemize}
+		\item GaussNormFunction.m
+		\item SigmoidFunction.m
+		\item LinearFunction.m
+		\item RayleighFunction.m
+		\item TangHFunction.m
+	\end{itemize}
+
+	\item Hilfsfunktionen:
+	
+	Die Hilfsfunktionen haben für das eigentliche Tool keine oder kaum Bedeutung. Sie werden nur genutzt, um Module zu testen oder Ausgaben zu generieren.
+	
+	\begin{itemize}
+		\item TestTangHFunction.m
+		\item TestSigmoidFunction.m
+		\item TestRayleighFunction.m
+		\item TestLinearFunction.m
+		\item TestGetPixelFeatureMatrix.m
+		\item TestGetGaussWeights.m
+		\item TestGetFeatureOfMatrix.m
+		\item TestGaussNormFunction.m
+		\item SummaryWeights.m
+		\item SummaryFunctions.m
+		\item savePic.m
+	\end{itemize}
+	
+\end{itemize}
+
+\subsection{Erläuterung der Parameter}
+In dem Matlab-Skript 'main.n' und die abgeleiteten Skripte 'SettingFileAddMul' und 'SettingFileSpecial' sind viele Parameter enthalten, die eingestellt werden können. Dieser Abschnitt soll einen Überblick geben, was die einzelnen Parameter bewirken.
+
+\begin{table}[hbt]
+	\centering
+	\begin{tabular}{|c|c|c|}
+		
+		\hline 
+		Zeile & Parameter & Erläuterung \\ 
+		\hline 
+		5 & pixelCnt & Pixel Anzahl in x- und y-Richtung \\ 
+		\hline 
+		6 & featureCnt & Merkmal Anzahl in x- und y-Richtung \\ 
+		\hline 
+		7 & weightType & Typ der Gewichts-Matrix (AddMul, Special, Add, Mul1, Mul2) \\ 
+		\hline 
+		8 & inFeatureType & voreingestellten Merkmale-Matrizen (Cross, H\_Line, V\_Line) \\ 
+		\hline 
+		9 & noise & Verrauschungsgrad zwischen 0\% und 100\% \\ 
+		\hline 
+		10 & slope & Steigung der Aktivierungs-Funktion \\ 
+		\hline 
+		13 & bias & Verschiebung der Aktivierungsfunktion (negativ nach rechts) \\ 
+		\hline 
+		14 & threshold & Auswertungsschwelle des Ergebnisses \\ 
+		\hline 
+		15 & domainOfDefinition & Gueltigkeitsbereich der Neuronenfunktion (+/-) \\ 
+		\hline 
+		18 & lowerBound & Untere Grenze der Gewichts-Matrix \\ 
+		\hline 
+		19 & upperBound & Obere Grenze der Gewichts-Matrix \\ 
+		\hline 
+		125 & domainOfDefinition & 2. Neuronen Ebene, h-Balken \\ 
+		\hline
+		126 & bias & 2. Neuronen Ebene, h-Balken \\ 
+		\hline 
+		127 & threshold & 2. Neuronen Ebene, h-Balken \\ 
+		\hline 
+		151 & domainOfDefinition & 2. Neuronen Ebene, v-Balken \\ 
+		\hline
+		152 & bias & 2. Neuronen Ebene, v-Balken \\ 
+		\hline 
+		153 & threshold & 2. Neuronen Ebene, v-Balken \\ 
+		\hline 
+		177 & domainOfDefinition & 2. Neuronen Ebene, Fehler Detektion \\ 
+		\hline
+		178 & bias & 2. Neuronen Ebene, Fehler Detektion \\ 
+		\hline 
+		179 & threshold & 2. Neuronen Ebene, Fehler Detektion \\ 
+		\hline 
+		
+	\end{tabular}
+	\caption{Übersicht der Parameter}
+	
+	\label{ueParameter}
+\end{table}
