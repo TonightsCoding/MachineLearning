@@ -10,7 +10,7 @@ function inputFeatureMatrix = GetInputFeatureMatrix( featureCnt, type )
     
     if (featureCnt > 2)
         if (mod(featureCnt, 2) == 0)  % Test ob featureCnt gerade ist        
-            warning('Anzahl der Merkmale ist gerade und es werden die beiden innersten Merkmale gewählt!');
+            warning('Anzahl der Merkmale ist gerade und es werden die beiden innersten Merkmale gewaehlt!');
             type = [type '_even']; % type um '_even' ergaenzen
         end
     else

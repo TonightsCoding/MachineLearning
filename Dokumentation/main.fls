@@ -724,6 +724,9 @@ INPUT Anhang.tex
 INPUT ..\Tool\GetPixelFeatureMatrix.m
 INPUT ..\Tool\GetPixelFeatureMatrix.m
 INPUT ..\Tool\GetPixelFeatureMatrix.m
+INPUT ..\Tool\GetInputFeatureMatrix.m
+INPUT ..\Tool\GetInputFeatureMatrix.m
+INPUT ..\Tool\GetInputFeatureMatrix.m
 INPUT ..\Tool\GetGaussWeights.m
 INPUT ..\Tool\GetGaussWeights.m
 INPUT ..\Tool\GetGaussWeights.m
