@@ -43,8 +43,9 @@
 %------------------------------------------------------------
 % Deckblatt und Inhaltsverzeichnis
 %------------------------------------------------------------
+\setlength {\marginparwidth }{2cm}
 \begin{document}
-	
+
 %\input{./Deckblatt/Deckblatt.tex}
 \pagenumbering{gobble}
 \begin{titlepage}
@@ -90,10 +91,6 @@
 %------------------------------------------------------------
 % ab hier beginnt das eigentliche Dokument
 %------------------------------------------------------------
-\newcommand{\faq}[2]{%
-	{\scshape Frage:} \normalfont\sffamily\textsf{#1}\par
-	\noindent{\scshape Antwort:} #2
-}
 \pagenumbering{arabic} 
 \input{./Einleitung.tex}
 \input{./Aufbau.tex}
@@ -102,10 +99,11 @@
 \input{./Tool.tex}
 \input{./Auswertung.tex}
 \input{./Fazit.tex}
-
 %------------------------------------------------------------
 % Anhang
 %------------------------------------------------------------
+\appendix
+\input{./Anhang.tex}
 \newpage
 \bibliographystyle{plain}
 \bibliography{bibliography}

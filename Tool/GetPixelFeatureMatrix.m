@@ -20,7 +20,7 @@ function pixelFeatureMatrix = GetPixelFeatureMatrix(pixelCnt, featureCnt, noise,
    % Ueberpruefung der maximal erlaubten Bildbreite
    % es koennen nur uint16-Werte beruecksichtigt werden
    if pixelCnt*featureCnt > 2^16-1
-      error('Pixelbreite des Bildes ist zu groß.')
+      error('Pixelbreite des Bildes ist zu gross.')
    end
    
    % Ueberpruefung des erlaubten Noise-Level-Bereichs -> 0 bis 100

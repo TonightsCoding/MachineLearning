@@ -477,25 +477,33 @@ INPUT Bilder\Auswertung\GewichtmatrixEinzelschritte\Endergebnis_Gewichtsmatrix_S
 INPUT .\Bilder\Auswertung\GewichtmatrixEinzelschritte\Endergebnis_Gewichtsmatrix_Slope_75_Type_Add.pdf
 INPUT .\Bilder\Auswertung\GewichtmatrixEinzelschritte\Endergebnis_Gewichtsmatrix_Slope_75_Type_Add.pdf
 INPUT .\Bilder\Auswertung\GewichtmatrixEinzelschritte\Endergebnis_Gewichtsmatrix_Slope_75_Type_Add.pdf
+INPUT C:\Users\tonit\AppData\Roaming\MiKTeX\2.9\tex\latex\listings\lstlang1.sty
+INPUT C:\Users\tonit\AppData\Roaming\MiKTeX\2.9\tex\latex\listings\lstlang1.sty
+INPUT ..\Tool\GetGaussWeights.m
 INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\lm\ec-lmr6.tfm
+INPUT ..\Tool\GetGaussWeights.m
+INPUT ..\Tool\GetGaussWeights.m
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\lm\t1lmtt.fd
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\lm\t1lmtt.fd
 INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\lm\ec-lmtt8.tfm
-INPUT Bilder\Auswertung\GewichtmatrixEinzelschritte\Endergebnis_Gewichtsmatrix_Slope_75_Type_Mul1.pdf
-INPUT .\Bilder\Auswertung\GewichtmatrixEinzelschritte\Endergebnis_Gewichtsmatrix_Slope_75_Type_Mul1.pdf
-INPUT .\Bilder\Auswertung\GewichtmatrixEinzelschritte\Endergebnis_Gewichtsmatrix_Slope_75_Type_Mul1.pdf
-INPUT .\Bilder\Auswertung\GewichtmatrixEinzelschritte\Endergebnis_Gewichtsmatrix_Slope_75_Type_Mul1.pdf
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\lm\omslmr.fd
 INPUT C:\Program Files\MiKTeX 2.9\tex\latex\lm\omslmr.fd
-INPUT Bilder\Auswertung\GewichtmatrixEinzelschritte\Endergebnis_Gewichtsmatrix_Slope_75_Type_Mul2.pdf
-INPUT .\Bilder\Auswertung\GewichtmatrixEinzelschritte\Endergebnis_Gewichtsmatrix_Slope_75_Type_Mul2.pdf
-INPUT .\Bilder\Auswertung\GewichtmatrixEinzelschritte\Endergebnis_Gewichtsmatrix_Slope_75_Type_Mul2.pdf
-INPUT .\Bilder\Auswertung\GewichtmatrixEinzelschritte\Endergebnis_Gewichtsmatrix_Slope_75_Type_Mul2.pdf
 INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\lm\rm-lmr5.tfm
 INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\lm\lmmi5.tfm
 INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\lm\lmsy5.tfm
 INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\amsfonts\symbols\msam5.tfm
 INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\amsfonts\symbols\msbm5.tfm
+INPUT Bilder\Auswertung\GewichtmatrixEinzelschritte\Endergebnis_Gewichtsmatrix_Slope_75_Type_Mul1.pdf
+INPUT .\Bilder\Auswertung\GewichtmatrixEinzelschritte\Endergebnis_Gewichtsmatrix_Slope_75_Type_Mul1.pdf
+INPUT .\Bilder\Auswertung\GewichtmatrixEinzelschritte\Endergebnis_Gewichtsmatrix_Slope_75_Type_Mul1.pdf
+INPUT .\Bilder\Auswertung\GewichtmatrixEinzelschritte\Endergebnis_Gewichtsmatrix_Slope_75_Type_Mul1.pdf
+INPUT ..\Tool\GetGaussWeights.m
+INPUT ..\Tool\GetGaussWeights.m
+INPUT ..\Tool\GetGaussWeights.m
+INPUT Bilder\Auswertung\GewichtmatrixEinzelschritte\Endergebnis_Gewichtsmatrix_Slope_75_Type_Mul2.pdf
+INPUT .\Bilder\Auswertung\GewichtmatrixEinzelschritte\Endergebnis_Gewichtsmatrix_Slope_75_Type_Mul2.pdf
+INPUT .\Bilder\Auswertung\GewichtmatrixEinzelschritte\Endergebnis_Gewichtsmatrix_Slope_75_Type_Mul2.pdf
+INPUT .\Bilder\Auswertung\GewichtmatrixEinzelschritte\Endergebnis_Gewichtsmatrix_Slope_75_Type_Mul2.pdf
 INPUT Bilder\Auswertung\Gewichtsmatrix\Gewichtsmatrix_Add_Slope_10.pdf
 INPUT .\Bilder\Auswertung\Gewichtsmatrix\Gewichtsmatrix_Add_Slope_10.pdf
 INPUT .\Bilder\Auswertung\Gewichtsmatrix\Gewichtsmatrix_Add_Slope_10.pdf
@@ -711,6 +719,14 @@ INPUT .\Bilder\Auswertung\MerkmalGruppen.png
 INPUT .\Bilder\Auswertung\MerkmalGruppen.png
 INPUT .\Bilder\Auswertung\MerkmalGruppen.png
 INPUT .\Bilder\Auswertung\MerkmalGruppen.png
+INPUT Anhang.tex
+INPUT Anhang.tex
+INPUT ..\Tool\GetPixelFeatureMatrix.m
+INPUT ..\Tool\GetPixelFeatureMatrix.m
+INPUT ..\Tool\GetPixelFeatureMatrix.m
+INPUT ..\Tool\GetGaussWeights.m
+INPUT ..\Tool\GetGaussWeights.m
+INPUT ..\Tool\GetGaussWeights.m
 INPUT c:\Users\tonit\OneDrive\Dokumente\Uni\Master\WS19\MbE\MachineLearning\Dokumentation\main.bbl
 INPUT c:\Users\tonit\OneDrive\Dokumente\Uni\Master\WS19\MbE\MachineLearning\Dokumentation\main.bbl
 INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\lm\ec-lmtt12.tfm
