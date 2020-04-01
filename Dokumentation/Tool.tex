@@ -14,8 +14,7 @@ Die Matlab-Skripte können in Kategorien eingeteilt werden. Die folgende Übersi
 	
 	\begin{itemize}
 		\item main.m \ref{main}  Die Hauptdatei unseres Tools. 
-		\item SettingFileAddMul.m \ref{SettingFileAddMul}  Einstellungen für die Gewichts-Matrix 'AddMul'.
-		
+		\item SettingFileAddMul.m \ref{SettingFileAddMul}  Einstellungen für die Gewichts-Matrix 'AddMul'.		
 		\item SettingFileSpecial.m \ref{SettingFileSpecial} Einstellungen für die Gewichts-Matrix 'Special'.
 		
 	\end{itemize}
@@ -25,29 +24,29 @@ Die Matlab-Skripte können in Kategorien eingeteilt werden. Die folgende Übersi
 	In dieser Auflistung werden alle relevanten Module gezeigt, welche für die Grundfunktionen verantwortlich sind.
 	
 	\begin{itemize}
-		\item GetPixelFeatureMatrix.m  
+		\item GetPixelFeatureMatrix.m \ref{GetPixelFeatureMatrix}  
 		
-		Diesem Modul wird eine Merkmale-Matrix übergeben und das Modul skaliert dann die Merkmale-Matrix auf eine Pixel-Matrix. Außerdem kann dem Modul ein Rauschwert zwischen 0 und 100 übergeben werden, um die Bilder mit Rauschen zu versehen. Dieser Wert wird als Prozentanteil interpretiert. Das Modul gibt eine Pixel-Matrix zurück und kann die erzeugten Bilder optional als Datei speichern. \ref{GetPixelFeatureMatrix}
+		Diesem Modul wird eine Merkmale-Matrix übergeben und das Modul skaliert dann die Merkmale-Matrix auf eine Pixel-Matrix. Außerdem kann dem Modul ein Wert für das Rauschen zwischen 0 und 100 übergeben werden, um die Bilder mit Rauschen zu versehen. Dieser Wert wird als Prozentanteil interpretiert. Das Modul gibt eine Pixel-Matrix zurück und kann die erzeugten Bilder optional als Datei speichern. 
 		
-		\item GetNeuronOutput.m  
+		\item GetNeuronOutput.m \ref{GetNeuronOutput}  
 		
-		Dieses Modul ist das eigentliche Neuron. Es müssen als Parameter die Eingangszustände und Gewichte übergeben werden. Es berechnet anschließend über die Aktivierungsfunktion das Ergebnis. Es werden darüber hinaus auch Zwischenergebnisse zurückgegeben. \ref{GetNeuronOutput}
+		Dieses Modul ist das eigentliche Neuron. Es müssen als Parameter die Eingangszustände und Gewichte übergeben werden. Es berechnet anschließend über die Aktivierungsfunktion das Ergebnis. Es werden darüber hinaus auch Zwischenergebnisse zurückgegeben. 
 		
-		\item GetInputFeatureMatrix.m  
+		\item GetInputFeatureMatrix.m \ref{GetInputFeatureMatrix}  
 		
-		Dieses Modul gibt vordefinierte Merkmale-Matrizen zurück, die wir häufig verwendet haben. \ref{GetInputFeatureMatrix}
+		Dieses Modul gibt vordefinierte Merkmale-Matrizen zurück, die wir häufig verwendet haben. 
 		
-		\item GetGaussWeights.m  
+		\item GetGaussWeights.m \ref{GetGaussWeights}  
 		
-		Dieses Modul gibt eine Gewichts-Matrix zurück. Welche hinterlegt sind wurde bereits im Abschnitt \ref{gewichtsmatrizenSection} erläutert. \ref{GetGaussWeights}
+		Dieses Modul gibt eine Gewichts-Matrix zurück. Welche hinterlegt sind wurde bereits im Abschnitt \ref{gewichtsmatrizenSection} erläutert. 
 		
-		\item GetFeatureOfMatrix.m  
+		\item GetFeatureOfMatrix.m \ref{GetFeatureOfMatrix}  
 		
-		Diesem Modul kann eine Pixel-Matrix übergeben werden und gibt eine Merkmale-Matrix zurück. \ref{GetFeatureOfMatrix}
+		Diesem Modul kann eine Pixel-Matrix übergeben werden und gibt eine Merkmale-Matrix zurück. 
 		
-		\item ConvMatrixToColumn.m  
+		\item ConvMatrixToColumn.m \ref{ConvMatrixToColumn}  
 		
-		Das Modul konvertiert eine Merkmale-Matrix in einen Spaltenvektor. \ref{ConvMatrixToColumn}
+		Das Modul konvertiert eine Merkmale-Matrix in einen Spaltenvektor. 
 		
 	\end{itemize}
 	
@@ -98,7 +97,7 @@ Imm Matlab-Skript 'main.n' und die abgeleiteten Skripte 'SettingFileAddMul' und 
 		\hline 
 		6 & featureCnt & Merkmal Anzahl in x- und y-Richtung \\ 
 		\hline 
-		7 & weightType & Typ der Gewichts-Matrix (AddMul, Special, Add, Mul1, Mul2) \\ 
+		7 & weightType & Gewichts-Matrix Typ (AddMul, Special, Add, Mul1, Mul2) \\ 
 		\hline 
 		8 & inFeatureType & voreingestellten Merkmale-Matrizen (Cross, H\_Line, V\_Line) \\ 
 		\hline 

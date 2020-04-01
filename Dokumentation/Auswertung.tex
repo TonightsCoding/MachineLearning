@@ -1,6 +1,6 @@
 \newpage
 \section{Auswertung}
-Für die Auswertung haben wir haben zwei von den vorgestellten Gewichtsmatrizen untersucht. Wir haben uns für die Gewichtsmatrizen 'AddMul' und 'Special' entschieden. Um reproduzierbare Ergebnisse liefern zu können, haben wir aus der 'main.m' zwei Dateien abgeleitet in denen die Konfigurationen der nachfolgenden Bilder hinterlegt sind. Die beiden Dateien heißen 'SettingFileAddMul.m' und 'SettingFileSpecial.m'. Beide Systeme wurde empirisch eingestellt und es wurde versucht ab 50\% Rauschen keine vernünftigen Ergebnisse mehr zu liefern. Außerdem wurden die Bias-Werte und Threshold-Werte voreingestellt.
+Für die Auswertung haben wir haben zwei von den vorgestellten Gewichtsmatrizen untersucht. Wir haben uns für die Gewichtsmatrizen 'AddMul' und 'Special' entschieden. Um reproduzierbare Ergebnisse liefern zu können, haben wir aus der 'main.m' zwei Dateien abgeleitet in denen die Konfigurationen der nachfolgenden Bilder hinterlegt sind. Die beiden Dateien heißen 'SettingFileAddMul.m' und 'SettingFileSpecial.m'. Beide Systeme wurde empirisch eingestellt und es wurde versucht ab einem Rauschen von 50\% keine vernünftigen Ergebnisse mehr zu liefern. Außerdem wurden die Bias-Werte und Threshold-Werte voreingestellt.
 
 Als nächstes soll für ein Beispiel besprochen werden, wie die Grafiken zu lesen sind. Dafür benutzen wir die Abbildungen \ref{AddMul_H_40_1} und \ref{AddMul_H_40_2} heran. Untersucht wurde die AddMul-Gewichtsmatrix mit horizontalen Balken. Der Rauschwert ist auf 40\% eingestellt. Die Farbe der eingezeichneten Punkte gibt an, ob das jeweilige Merkmal richtig detektiert wurde oder nicht. In Abbildung \ref{AddMul_H_40_1} sehen wir das Ergebnis der ersten Neuronen Ebene. In der Sigmoid-Grafik sind 25 grüne Punkte eingezeichnet. Es sind also alle Merkmale richtig detektiert worden. An dieser Stelle werden die addierten Werte der einzelnen Pixel auf eine Sigmoid-Funktion gegeben und grafisch ausgewertet.
 
@@ -10,11 +10,12 @@ In Abbildung \ref{AddMul_H_40_2} ist die zweite Neuronen-Ebene dargestellt. In j
 \subsection{AddMul Gewichtsmatrix}
 \subsubsection{H-Balken}
 \begin{figure}[hbt]
+	\centering
 	\begin{minipage}[c]{\textwidth}
-       	\includegraphics[width=\textwidth]{./Bilder/Auswertung/Endergebnis/TypeAddMul_Rauschen40_H_Line_Layer1}
+       	\includegraphics[trim=70 211 42 222, clip, width=0.9\textwidth]{./Bilder/Auswertung/Endergebnis/TypeAddMul_Rauschen40_H_Line_Layer1}
 		\caption{AddMul, H-Balken, 40\% Rauschen, 1. Neuronen Ebene}
 		\label{AddMul_H_40_1}
-		\includegraphics[width=\textwidth]{./Bilder/Auswertung/Endergebnis/TypeAddMul_Rauschen40_H_Line_Layer2}
+		\includegraphics[trim=70 211 42 222, clip, width=0.9\textwidth]{./Bilder/Auswertung/Endergebnis/TypeAddMul_Rauschen40_H_Line_Layer2}
 		\caption{AddMul, H-Balken, 40\% Rauschen, 2. Neuronen Ebene}
 		\label{AddMul_H_40_2}
 	\end{minipage}
