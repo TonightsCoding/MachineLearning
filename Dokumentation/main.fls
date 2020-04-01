@@ -504,6 +504,9 @@ INPUT Bilder\Auswertung\GewichtmatrixEinzelschritte\Endergebnis_Gewichtsmatrix_S
 INPUT .\Bilder\Auswertung\GewichtmatrixEinzelschritte\Endergebnis_Gewichtsmatrix_Slope_75_Type_Mul2.pdf
 INPUT .\Bilder\Auswertung\GewichtmatrixEinzelschritte\Endergebnis_Gewichtsmatrix_Slope_75_Type_Mul2.pdf
 INPUT .\Bilder\Auswertung\GewichtmatrixEinzelschritte\Endergebnis_Gewichtsmatrix_Slope_75_Type_Mul2.pdf
+INPUT ..\Tool\GetGaussWeights.m
+INPUT ..\Tool\GetGaussWeights.m
+INPUT ..\Tool\GetGaussWeights.m
 INPUT Bilder\Auswertung\Gewichtsmatrix\Gewichtsmatrix_Add_Slope_10.pdf
 INPUT .\Bilder\Auswertung\Gewichtsmatrix\Gewichtsmatrix_Add_Slope_10.pdf
 INPUT .\Bilder\Auswertung\Gewichtsmatrix\Gewichtsmatrix_Add_Slope_10.pdf
@@ -540,6 +543,9 @@ INPUT Bilder\Auswertung\Gewichtsmatrix\Gewichtsmatrix_Mul2_Slope_100.pdf
 INPUT .\Bilder\Auswertung\Gewichtsmatrix\Gewichtsmatrix_Mul2_Slope_100.pdf
 INPUT .\Bilder\Auswertung\Gewichtsmatrix\Gewichtsmatrix_Mul2_Slope_100.pdf
 INPUT .\Bilder\Auswertung\Gewichtsmatrix\Gewichtsmatrix_Mul2_Slope_100.pdf
+INPUT ..\Tool\GetGaussWeights.m
+INPUT ..\Tool\GetGaussWeights.m
+INPUT ..\Tool\GetGaussWeights.m
 INPUT Bilder\Auswertung\Gewichtsmatrix\Gewichtsmatrix_AddMul_Slope_10.pdf
 INPUT .\Bilder\Auswertung\Gewichtsmatrix\Gewichtsmatrix_AddMul_Slope_10.pdf
 INPUT .\Bilder\Auswertung\Gewichtsmatrix\Gewichtsmatrix_AddMul_Slope_10.pdf
@@ -552,6 +558,9 @@ INPUT Bilder\Auswertung\Gewichtsmatrix\Gewichtsmatrix_AddMul_Slope_100.pdf
 INPUT .\Bilder\Auswertung\Gewichtsmatrix\Gewichtsmatrix_AddMul_Slope_100.pdf
 INPUT .\Bilder\Auswertung\Gewichtsmatrix\Gewichtsmatrix_AddMul_Slope_100.pdf
 INPUT .\Bilder\Auswertung\Gewichtsmatrix\Gewichtsmatrix_AddMul_Slope_100.pdf
+INPUT ..\Tool\GetGaussWeights.m
+INPUT ..\Tool\GetGaussWeights.m
+INPUT ..\Tool\GetGaussWeights.m
 INPUT Bilder\Auswertung\Gewichtsmatrix\Gewichtsmatrix_Special_Slope_10.pdf
 INPUT .\Bilder\Auswertung\Gewichtsmatrix\Gewichtsmatrix_Special_Slope_10.pdf
 INPUT .\Bilder\Auswertung\Gewichtsmatrix\Gewichtsmatrix_Special_Slope_10.pdf
