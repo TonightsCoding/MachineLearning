@@ -43,10 +43,11 @@
 %------------------------------------------------------------
 % Deckblatt und Inhaltsverzeichnis
 %------------------------------------------------------------
+\setlength {\marginparwidth }{2cm}
 \begin{document}
-	
-%\input{./Deckblatt/Deckblatt.tex}
 
+%\input{./Deckblatt/Deckblatt.tex}
+\pagenumbering{gobble}
 \begin{titlepage}
 	\vspace*{2.5cm}
 	\begin{center}
@@ -85,33 +86,27 @@
 \end{titlepage}
 
 \tableofcontents
-\setcounter{page}{2}
 \newpage
 		
 %------------------------------------------------------------
 % ab hier beginnt das eigentliche Dokument
 %------------------------------------------------------------
-\newcommand{\faq}[2]{%
-	{\scshape Frage:} \normalfont\sffamily\textsf{#1}\par
-	\noindent{\scshape Antwort:} #2
-}
-
-\input{Einleitung.tex}
-%\input{./Laboruebung1.tex}
-%\input{./Laboruebung2.tex}
-%\input{./Laboruebung3.tex}
-%\input{./Laboruebung4.tex}
-
+\pagenumbering{arabic} 
+\input{./Einleitung.tex}
+\input{./Aufbau.tex}
+\input{./Eingangsbilder.tex}
+\input{./Gewichtsmatrizen.tex}
+\input{./Tool.tex}
+\input{./Auswertung.tex}
+\input{./Fazit.tex}
 %------------------------------------------------------------
 % Anhang
 %------------------------------------------------------------
+\appendix
+\input{./Anhang.tex}
 \newpage
 \bibliographystyle{plain}
 \bibliography{bibliography}
 %\clearpage
 %\section{Anhang}
-%\includepdf[pages=-,frame=true,scale=0.8]{./Anhang/CES_Laboruebung_1}
-%\includepdf[pages=-,frame=true,scale=0.8]{./Anhang/CES_Laboruebung_2}
-%\includepdf[pages=-,frame=true,scale=0.8]{./Anhang/CES_Laboruebung_3}
-%\includepdf[pages=-,frame=true,scale=0.8]{./Anhang/CES_Laboruebung_4}
 \end{document}

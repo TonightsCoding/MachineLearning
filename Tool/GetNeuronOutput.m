@@ -21,7 +21,7 @@ function [netTerms, output] = GetNeuronOutput(inputs, weights, bias, domainOfDef
    
    % Ueberpruefen, ob die Anzahl der Eingaenge und Gewichte zusammen passen
    if (length(inputs) ~= length(weights))
-      error('Anzahl der angegebenen Eingänge und der Eingänge müssen gleich sein.')
+      error('Anzahl der angegebenen Eingaenge und der Eingaenge muessen gleich sein.')
    end
 
    % Eingaenge und Gewichten multiplizieren

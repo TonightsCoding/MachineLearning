@@ -1,0 +1,141 @@
+\newpage
+\section{Das Matlab Tool}
+
+Dieser Abschnitt soll dazu dienen, die Matlab-Skripte besser verstehen zu können. Es soll keine komplette Anleitung sein, aber die wichtigsten Zusammenhänge darstellen und Erfahrungswerte vermitteln. In diesem Projekt sind viele Zeilen Code in Matlab geschrieben worden. Es sollte erreicht werden, dass der Aufbau der einzelnen Dateien möglichst generisch ist. Die Entwicklung hat mithilfe von GitHub stattgefunden. Über diesen \href{https://github.com/TonightsCoding/MachineLearning/releases/tag/v1.0.0}{Link} stehen dort alle, auch die hier nicht erläuterten, Dateien in dem zu dieser Dokumentation passenden Stand zur Verfügung.
+
+
+\subsection{Modulübersicht}
+Die Matlab-Skripte können in Kategorien eingeteilt werden. Die folgende Übersicht soll darüber Aufschluss geben. 
+
+\begin{description}
+	\item[Ablauf und Einstellungen:]~\par
+	
+	In diesen Dateien werden alle benötigten Module aufgerufen. In der Datei 'main.m' ist der komplette Ablauf hinterlegt. Für eine bessere Reproduzierbarkeit haben wir zwei weitere Dateien angelegt, in denen wir Grundeinstellungen für die Gewichtsmatrizen getroffen haben, die wir in dieser Dokumentation auswerten.
+	
+	\begin{itemize}
+		\item main.m \ref{main}  Die Hauptdatei unseres Tools. 
+		\item SettingFileAddMul.m \ref{SettingFileAddMul}  Einstellungen für die Gewichts-Matrix 'AddMul'.		
+		\item SettingFileSpecial.m \ref{SettingFileSpecial} Einstellungen für die Gewichts-Matrix 'Special'.
+		
+	\end{itemize}
+	
+	\item[Module:]~\par
+	
+	In dieser Auflistung werden alle relevanten Module gezeigt, welche für die Grundfunktionen verantwortlich sind.
+	
+	\begin{itemize}
+		\item GetPixelFeatureMatrix.m \ref{GetPixelFeatureMatrix}  
+		
+		Diesem Modul wird eine Merkmale-Matrix übergeben und das Modul skaliert dann die Merkmale-Matrix auf eine Pixel-Matrix. Außerdem kann dem Modul ein Wert für das Rauschen zwischen 0 und 100 übergeben werden, um die Bilder mit Rauschen zu versehen. Dieser Wert wird als Prozentanteil interpretiert. Das Modul gibt eine Pixel-Matrix zurück und kann die erzeugten Bilder optional als Datei speichern. 
+		
+		\item GetNeuronOutput.m \ref{GetNeuronOutput}  
+		
+		Dieses Modul ist das eigentliche Neuron. Es müssen als Parameter die Eingangszustände und Gewichte übergeben werden. Es berechnet anschließend über die Aktivierungsfunktion das Ergebnis. Es werden darüber hinaus auch Zwischenergebnisse zurückgegeben. 
+		
+		\item GetInputFeatureMatrix.m \ref{GetInputFeatureMatrix}  
+		
+		Dieses Modul gibt vordefinierte Merkmale-Matrizen zurück, die wir häufig verwendet haben. 
+		
+		\item GetGaussWeights.m \ref{GetGaussWeights}  
+		
+		Dieses Modul gibt eine Gewichts-Matrix zurück. Welche hinterlegt sind wurde bereits im Abschnitt \ref{gewichtsmatrizenSection} erläutert. 
+		
+		\item GetFeatureOfMatrix.m \ref{GetFeatureOfMatrix}  
+		
+		Diesem Modul kann eine Pixel-Matrix übergeben werden und gibt eine Merkmale-Matrix zurück. 
+		
+		\item ConvMatrixToColumn.m \ref{ConvMatrixToColumn}  
+		
+		Das Modul konvertiert eine Merkmale-Matrix in einen Spaltenvektor. 
+		
+	\end{itemize}
+	
+	\item[Funktionen:]~\par
+	
+	Diese Funktionen wurden zusätzlich von uns implementiert. Im akutellen Stand wurde allerdings nur die Gauß- beziehungsweise Sigmoid-Funktion verwendet. Deshalb sind auch lediglich diese im Appendix \ref{Appendix} aufgeführt.
+	
+	\begin{itemize}
+		\item GaussNormFunction.m \ref{GaussNormFunction}
+		\item SigmoidFunction.m \ref{SigmoidFunction}
+		\item LinearFunction.m
+		\item RayleighFunction.m
+		\item TangHFunction.m
+	\end{itemize}
+\newpage
+	\item[Hilfsfunktionen:]~\par
+	
+	Die Hilfsfunktionen haben für das eigentliche Tool keine oder kaum Bedeutung. Sie werden nur genutzt, um Module zu testen oder Ausgaben zu generieren und sind ebenfalls im Appendix nicht aufgeführt jedoch im \href{https://github.com/TonightsCoding/MachineLearning/releases/tag/v1.0.0}{Release} enthalten.
+	
+	\begin{itemize}
+		\item TestTangHFunction.m
+		\item TestSigmoidFunction.m
+		\item TestRayleighFunction.m
+		\item TestLinearFunction.m
+		\item TestGetPixelFeatureMatrix.m
+		\item TestGetGaussWeights.m
+		\item TestGetFeatureOfMatrix.m
+		\item TestGaussNormFunction.m
+		\item SummaryWeights.m
+		\item SummaryFunctions.m
+		\item savePic.m
+	\end{itemize}
+	
+\end{description}
+
+\newpage
+\subsection{Erläuterung der Parameter}
+Imm Matlab-Skript 'main.n' und die abgeleiteten Skripte 'SettingFileAddMul' und 'SettingFileSpecial' sind viele Parameter enthalten, die eingestellt werden können. Dieser Abschnitt soll einen Überblick geben, was die einzelnen Parameter bewirken.
+
+\begin{table}[hbt]
+	\centering
+	\begin{tabular}{|c|c|c|}
+		
+		\hline 
+		Zeile & Parameter & Erläuterung \\ 
+		\hline 
+		5 & pixelCnt & Pixel Anzahl in x- und y-Richtung \\ 
+		\hline 
+		6 & featureCnt & Merkmal Anzahl in x- und y-Richtung \\ 
+		\hline 
+		7 & weightType & Gewichts-Matrix Typ (AddMul, Special, Add, Mul1, Mul2) \\ 
+		\hline 
+		8 & inFeatureType & voreingestellten Merkmale-Matrizen (Cross, H\_Line, V\_Line) \\ 
+		\hline 
+		9 & noise & Verrauschungsgrad zwischen 0 und 100 in Prozent \\ 
+		\hline 
+		10 & slope & Steigung der Aktivierungs-Funktion \\ 
+		\hline 
+		13 & bias & Verschiebung der Aktivierungsfunktion (negativ nach rechts) \\ 
+		\hline 
+		14 & threshold & Auswertungsschwelle des Ergebnisses \\ 
+		\hline 
+		15 & domainOfDefinition & Gueltigkeitsbereich der Neuronenfunktion (+/-) \\ 
+		\hline 
+		18 & lowerBound & Untere Grenze der Gewichts-Matrix \\ 
+		\hline 
+		19 & upperBound & Obere Grenze der Gewichts-Matrix \\ 
+		\hline 
+		125 & domainOfDefinition & 2. Neuronen Ebene, h-Balken \\ 
+		\hline
+		126 & bias & 2. Neuronen Ebene, h-Balken \\ 
+		\hline 
+		127 & threshold & 2. Neuronen Ebene, h-Balken \\ 
+		\hline 
+		151 & domainOfDefinition & 2. Neuronen Ebene, v-Balken \\ 
+		\hline
+		152 & bias & 2. Neuronen Ebene, v-Balken \\ 
+		\hline 
+		153 & threshold & 2. Neuronen Ebene, v-Balken \\ 
+		\hline 
+		177 & domainOfDefinition & 2. Neuronen Ebene, Fehler Detektion \\ 
+		\hline
+		178 & bias & 2. Neuronen Ebene, Fehler Detektion \\ 
+		\hline 
+		179 & threshold & 2. Neuronen Ebene, Fehler Detektion \\ 
+		\hline 
+		
+	\end{tabular}
+	\caption{Übersicht der Parameter}
+	
+	\label{ueParameter}
+\end{table}

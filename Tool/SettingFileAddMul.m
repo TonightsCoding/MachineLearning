@@ -5,12 +5,12 @@ close all, clear all
 pixelCnt = 8;               % Anzahl der Pixel in x-Richtung pro Merkmal - mindestens 1
 featureCnt = 5;             % Anzahl der Merkmale in x-Richtung - mindestens 1
 weightType = 'AddMul';         % Typ der Gewichtsmatrix ('Add', 'AddMul' & 'Mul')
-inFeatureType = 'Cross';    % Arten der Eingangs-Merkmale-Matrix ((default)'Cross', 'V_Line', 'H_Line' & 'Cal') 
-noise = 80;                 % Verrauschungsgrad zwischen 0 und 100%
+inFeatureType = 'V_Line';    % Arten der Eingangs-Merkmale-Matrix ((default)'Cross', 'V_Line', 'H_Line' & 'Cal') 
+noise = 40;                 % Verrauschungsgrad zwischen 0 und 100%
 slope = 60;                 % Steigung der Aktivierungs-Funktion (gauss) [50]
 
 % Parameter fuer Aktivierungsfunktion
-bias = 0;                  % Verschiebung in x-Richtung -> Neg (rechts), Pos (links)
+bias = -8;                  % Verschiebung in x-Richtung -> Neg (rechts), Pos (links)
 threshold = 0.85;           % Auswertungsschwelle des Ergebnisses
 domainOfDefinition = 50;     % Gueltigkeitsbereich der Neuronenfunktion -> (+/- domainOfDefinition)
 

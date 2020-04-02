@@ -1,7 +1,7 @@
 function res = ConvMatrixToColumn(matrix)
    % Funktion liest Matrix zeilenweise ein und gibt matrix als
    % Spaltenvektor aus
-   % res - gibt einen Spaltenvektor zurück
+   % res - gibt einen Spaltenvektor zurueck
    % matrix - zu konvertierende Matrix
    
    sizeMatrix = size(matrix);
