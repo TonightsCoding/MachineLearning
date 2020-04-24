@@ -1,0 +1,9 @@
+# Created by Toni on 24th of April
+
+# Dateien fuer Hardware erlauben
+*.*
+!.gitignore
+!*.vhd
+!*.py
+!*.m
+!*.md
