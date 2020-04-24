@@ -28,7 +28,8 @@
 \geometry{a4paper, top=25mm, left=20mm, right=20mm, bottom=30mm, headsep=10mm, footskip=12mm}
 \onehalfspacing							%Zeilenabstand 1.5
 %\par\bigskip 
-%\parindent=0pt							%verhindert das Einrücken
+%\parindent=0pt							%verhindert das 
+\setlength {\marginparwidth }{2cm}	
 \lstset
 {
 	language=C,
@@ -44,14 +45,14 @@
 % Deckblatt und Inhaltsverzeichnis
 %------------------------------------------------------------
 \begin{document}
-	
+
 %\input{./Deckblatt/Deckblatt.tex}
 
 \begin{titlepage}
 	\vspace*{2.5cm}
 	\begin{center}
 		
-		{\LARGE Modellbasierter Entwurf} \\ [1cm]
+		{\LARGE Entwurf eingebetteter Systeme} \\ [1cm]
 		\rule{\textwidth}{1pt}\\ [0.5cm]
 		\textbf{\Huge {Neuronale Netze}}
 		\rule{\textwidth}{1pt}\\[2cm]
@@ -96,7 +97,7 @@
 	\noindent{\scshape Antwort:} #2
 }
 
-\input{Einleitung.tex}
+%\input{Einleitung.tex}
 %\input{./Laboruebung1.tex}
 %\input{./Laboruebung2.tex}
 %\input{./Laboruebung3.tex}

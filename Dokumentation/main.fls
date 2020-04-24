@@ -333,40 +333,9 @@ INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\lm\ec-lmssbx10.tfm
 INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\lm\ec-lmssbx10.tfm
 INPUT c:\Users\tonit\OneDrive\Dokumente\Uni\Master\WS19\MbE\MachineLearning\Dokumentation\main.toc
 INPUT c:\Users\tonit\OneDrive\Dokumente\Uni\Master\WS19\MbE\MachineLearning\Dokumentation\main.toc
-INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\lm\rm-lmr12.tfm
-INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\lm\rm-lmr8.tfm
-INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\lm\rm-lmr6.tfm
-INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\lm\lmmi12.tfm
-INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\lm\lmmi8.tfm
-INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\lm\lmmi6.tfm
-INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\lm\lmsy10.tfm
-INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\lm\lmsy8.tfm
-INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\lm\lmsy6.tfm
-INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\amsfonts\symbols\msam10.tfm
-INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\amsfonts\symbols\msam10.tfm
-INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\amsfonts\symbols\msam7.tfm
-INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\amsfonts\symbols\msbm10.tfm
-INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\amsfonts\symbols\msbm10.tfm
-INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\amsfonts\symbols\msbm7.tfm
 OUTPUT c:\Users\tonit\OneDrive\Dokumente\Uni\Master\WS19\MbE\MachineLearning\Dokumentation\main.toc
-INPUT c:\Users\tonit\OneDrive\Dokumente\Uni\Master\WS19\MbE\MachineLearning\Dokumentation\Einleitung.tex
-INPUT c:\Users\tonit\OneDrive\Dokumente\Uni\Master\WS19\MbE\MachineLearning\Dokumentation\Einleitung.tex
-INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\lm\ec-lmssbx10.tfm
-INPUT Bilder\Aufbau_Nervenzelle_Mazzetti.jpeg
-INPUT .\Bilder\Aufbau_Nervenzelle_Mazzetti.jpeg
-INPUT .\Bilder\Aufbau_Nervenzelle_Mazzetti.jpeg
-INPUT .\Bilder\Aufbau_Nervenzelle_Mazzetti.jpeg
-INPUT .\Bilder\Aufbau_Nervenzelle_Mazzetti.jpeg
-INPUT Bilder\VerarbeitungVisuellerEindruck-Kratzer.jpeg
-INPUT .\Bilder\VerarbeitungVisuellerEindruck-Kratzer.jpeg
-INPUT .\Bilder\VerarbeitungVisuellerEindruck-Kratzer.jpeg
-INPUT .\Bilder\VerarbeitungVisuellerEindruck-Kratzer.jpeg
-INPUT .\Bilder\VerarbeitungVisuellerEindruck-Kratzer.jpeg
 INPUT c:\Users\tonit\OneDrive\Dokumente\Uni\Master\WS19\MbE\MachineLearning\Dokumentation\main.bbl
 INPUT c:\Users\tonit\OneDrive\Dokumente\Uni\Master\WS19\MbE\MachineLearning\Dokumentation\main.bbl
-INPUT C:\Program Files\MiKTeX 2.9\tex\latex\lm\t1lmtt.fd
-INPUT C:\Program Files\MiKTeX 2.9\tex\latex\lm\t1lmtt.fd
-INPUT C:\Program Files\MiKTeX 2.9\fonts\tfm\public\lm\ec-lmtt12.tfm
 INPUT c:\Users\tonit\OneDrive\Dokumente\Uni\Master\WS19\MbE\MachineLearning\Dokumentation\main.aux
 INPUT c:\Users\tonit\OneDrive\Dokumente\Uni\Master\WS19\MbE\MachineLearning\Dokumentation\main.out
 INPUT c:\Users\tonit\OneDrive\Dokumente\Uni\Master\WS19\MbE\MachineLearning\Dokumentation\main.out
@@ -379,5 +348,3 @@ INPUT C:\Program Files\MiKTeX 2.9\fonts\type1\public\lm\lmr17.pfb
 INPUT C:\Program Files\MiKTeX 2.9\fonts\type1\public\lm\lmr17.pfb
 INPUT C:\Program Files\MiKTeX 2.9\fonts\type1\public\lm\lmssbx10.pfb
 INPUT C:\Program Files\MiKTeX 2.9\fonts\type1\public\lm\lmssbx10.pfb
-INPUT C:\Program Files\MiKTeX 2.9\fonts\type1\public\lm\lmtt12.pfb
-INPUT C:\Program Files\MiKTeX 2.9\fonts\type1\public\lm\lmtt12.pfb
