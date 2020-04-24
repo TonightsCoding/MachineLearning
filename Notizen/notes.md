@@ -12,10 +12,7 @@ export_on_save:
 + lowerBound und upperBound müssten in HW eher zwischen -0,75 und 0,25. Wir lassen es ersteinmal so (-0,7 bis 0,3), um später eine Optimierung zu haben.
 ![](./Bilder/2020-04-24_Bild1.PNG)  
 
-```mermaid
-graph LR
-A[Pixel-Eingang] -->B(Round edge)
-    B --> C{Decision}
-    C -->|One| D[Result one]
-    C -->|Two| E[Result two]
-​```
++ Zahlenbereiche für Neuronen Ebende
+ ![](./Bilder/2020-04-24_Bild2.PNG)
+ ![](./Bilder/2020-04-24_Bild3.PNG)
+ ![](./Bilder/2020-04-24_Bild4.PNG)
