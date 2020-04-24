@@ -27,7 +27,7 @@ I2 = [1 1 1 1 1]; % Zeile 2
 I3 = [1 1 1 1 1]; % Zeile 3
 I4 = [1 1 1 1 1]; % Zeile 4
 I5 = [1 1 1 1 1]; % Zeile 5
-% inputFeatureMatrix = uint8([I1; I2; I3; I4; I5]);
+ inputFeatureMatrix = uint8([I1; I2; I3; I4; I5]);
 
 % Erstellen der Ausgangs-Merkmale-Matrix
 outputFeatureMatrix = zeros(5, 5); % Erstelle Merkmale-Ausgangs-Matrix

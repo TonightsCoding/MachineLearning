@@ -16,3 +16,10 @@ export_on_save:
  ![](./Bilder/2020-04-24_Bild2.PNG)
  ![](./Bilder/2020-04-24_Bild3.PNG)
  ![](./Bilder/2020-04-24_Bild4.PNG)
+
+ + Gewichtsmatrix
+ ```
+ G = table(weightMatrix)
+writetable(G,'myData.txt','Delimiter',';')
+ ```
+[Link zur Textdatei](./Bilder/myData.txt)  
