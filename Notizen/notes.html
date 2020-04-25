@@ -281,12 +281,66 @@ pre[data-line] .line-highlight[data-end]:after {
 <img src="./Bilder/2020-04-24_Bild4.PNG" alt></p>
 </li>
 <li>
-<p>Gewichtsmatrix</p>
-</li>
-</ul>
+<p>Gewichtsmatrix (<a href="./Bilder/myData.txt">Link zur Textdatei</a>)</p>
 <pre data-role="codeBlock" data-info class="language-"><code>G = table(weightMatrix)
 writetable(G,&apos;myData.txt&apos;,&apos;Delimiter&apos;,&apos;;&apos;)
-</code></pre><p><a href="./Bilder/myData.txt">Link zur Textdatei</a></p>
+</code></pre></li>
+<li>
+<p>wichtige Parameter f&#xFC;r die HW- Simulation</p>
+<ul>
+<li>Pixel Count</li>
+<li>Feature Count</li>
+<li>Gewichtsmatrix</li>
+<li>(Bias) -&gt; Toni sagt &quot;NEIN!&quot;
+<ul>
+<li>h-Balken</li>
+<li>v-Balken</li>
+<li>Fehler Detektion</li>
+</ul>
+</li>
+<li>Threshold (3. Ebene) -&gt; Balkenausgabe
+<ul>
+<li>h-Balken</li>
+<li>v-Balken</li>
+<li>Fehler Detektion</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>N&#xE4;chsten Ziele:</p>
+<ul>
+<li>Blockschaltbild f&#xFC;r seriellen Ablauf aus Sicht eines Merkmals (@Toni)</li>
+<li>wie funktioniert ein float, SW / HW (@Toni und Bryan)</li>
+<li>definierte Schnittstelle (Vor-Simulation -&gt; HW-Simulation)  (@Bryan)
+<ul>
+<li>2 Funktionen f&#xFC;r jede Simulation</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>weitere Ziele:</p>
+<ul>
+<li>Simulation f&#xFC;r Hardware
+<ul>
+<li>HW - Neuron, erstmal mit gro&#xDF;em integer Zahlenwert (@Bryan)</li>
+<li>Gewichtmatrix aus Textdatei einlesen</li>
+<li>Umwandlung von float in integer (fixpoint)</li>
+</ul>
+</li>
+<li>Funktion f&#xFC;r Zahlenbereichsoptimierung</li>
+<li>simuliertes Hardware-Neuron
+<ul>
+<li>Addierer</li>
+<li>Multiplizierer</li>
+<li>Gr&#xF6;&#xDF;e Summe des Ausgangs -&gt; Zweierpotenz</li>
+</ul>
+</li>
+<li>automatische Optimierung der Gewichte auf eines Zahlenbereich</li>
+</ul>
+</li>
+</ul>
 
       </div>
       

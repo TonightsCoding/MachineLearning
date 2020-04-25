@@ -17,9 +17,41 @@ export_on_save:
  ![](./Bilder/2020-04-24_Bild3.PNG)
  ![](./Bilder/2020-04-24_Bild4.PNG)
 
- + Gewichtsmatrix
- ```
- G = table(weightMatrix)
-writetable(G,'myData.txt','Delimiter',';')
- ```
-[Link zur Textdatei](./Bilder/myData.txt)  
+ + Gewichtsmatrix ([Link zur Textdatei](./Bilder/myData.txt))
+    ```
+    G = table(weightMatrix)
+    writetable(G,'myData.txt','Delimiter',';')
+    ```  
+      
++ wichtige Parameter für die HW- Simulation
+    - Pixel Count
+    - Feature Count
+    - Gewichtsmatrix
+    - (Bias) -> Toni sagt "NEIN!"
+        * h-Balken
+        * v-Balken
+        * Fehler Detektion
+    - Threshold (3. Ebene) -> Balkenausgabe
+        * h-Balken
+        * v-Balken
+        * Fehler Detektion
+
+    
+
++ Nächsten Ziele:
+    + Blockschaltbild für seriellen Ablauf aus Sicht eines Merkmals (@Toni)
+    + wie funktioniert ein float, SW / HW (@Toni und Bryan)
+    + definierte Schnittstelle (Vor-Simulation -> HW-Simulation)  (@Bryan)
+        - 2 Funktionen für jede Simulation
+        
++ weitere Ziele:
+    + Simulation für Hardware
+        + HW - Neuron, erstmal mit großem integer Zahlenwert (@Bryan)
+        + Gewichtmatrix aus Textdatei einlesen
+        + Umwandlung von float in integer (fixpoint)
+    + Funktion für Zahlenbereichsoptimierung
+    + simuliertes Hardware-Neuron
+        - Addierer
+        - Multiplizierer
+        - Größe Summe des Ausgangs -> Zweierpotenz
+    + automatische Optimierung der Gewichte auf eines Zahlenbereich
