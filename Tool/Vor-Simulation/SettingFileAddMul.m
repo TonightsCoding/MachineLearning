@@ -220,3 +220,7 @@ if (neuronOutput4 < threshold)
 else
    plot(sum(neuronNetTerms4), neuronOutput4, '+', 'color', 'g')
 end
+
+% Workspace speichern
+%clearvars -except weightMatrix
+save('../datas_from_pre_simulation')
