@@ -1,4 +1,4 @@
-function [netTerms, output] = GetNeuronOutput(inputs, weights, bias, domainOfDefinition, type)
+function [netTerms, output] = GetNeuronOutput(inputs, weights, bias, activation_function_x, activation_function_y)
    % Berechnet ein Neuron und gibt das Zwischen- und Endergebnis zurueck.
    %
    % returns:
@@ -30,22 +30,18 @@ function [netTerms, output] = GetNeuronOutput(inputs, weights, bias, domainOfDef
    % Summe ueber alle Zwischenergebnisse
    netOutput = sum(netTerms);
    
-   % Gueltigkeitsbereich der Zwischenergebnisse einschraenken
-   if (domainOfDefinition ~= 0)
-      while (netOutput > domainOfDefinition) || (-domainOfDefinition > netOutput)
-         netOutput = netOutput ./ 2;
-         netTerms = netTerms ./ 2;
-         error('Zahlenbereich ueberschritten') 
-      end
-   end
-      
-   % Funktion zuordnen
-   if strcmp(type, 'sigmoid')
-      output = SigmoidFunction(netOutput, bias);
-   elseif strcmp(type, 'linear')
-      output = netOutput;
+   activation_function_x = activation_function_x - bias;
+   len = length(activation_function_x);
+   offset = activation_function_x(1);
+   dx = (activation_function_x(end) - activation_function_x(1)) / len; 
+   index = round((netOutput - offset) / dx);
+   
+   if (index <= 0)
+      output = activation_function_y(1);
+   elseif (index > len)
+      output = activation_function_y(end);
    else
-      error('type unknown, use sigmoid')  
+      output = activation_function_y(index);
    end
     
 end
