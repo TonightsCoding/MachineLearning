@@ -1,8 +1,7 @@
 close all, clear all
 figure, hold on
 
-% explainations of variables
-% activiation_function_dnd - activiation_function_domain-of-defintion
+% activiation_function_lx_dnd - activiation_function_domain-of-defintion
 
 %% Global Parameter
 pixelCnt = 8;
@@ -18,48 +17,52 @@ sigmoid_function_y = SigmoidFunction(1000, -8, 8, 0, 1, 0);
 %plot(sigmoid_function_x, sigmoid_function_y)
 %figure, hold on
 
+%% Linear-Function
+
+linear_function_x = linspace(-50, 50, 1000)';
+linear_function_y = linear_function_x;
+
 %% Input-Feature-Matrix_Layer-1
-inputFeatureType = 'H_Line';    % {Cross, V_Line, H_Line, Cal}
-noise = 55;
+inputFeatureType = 'Cross';    % {Cross, V_Line, H_Line, Cal}
+noise = 40;
 inputFeatureMatrix = GetInputFeatureMatrix(featureCnt, inputFeatureType);
 
 subplot(2,2,2)
-input_matrix_l1 = GetPixelFeatureMatrix(pixelCnt, featureCnt, noise, inputFeatureMatrix, '');
-imshow(input_matrix_l1)
+inputMatrix = GetPixelFeatureMatrix(pixelCnt, featureCnt, noise, inputFeatureMatrix, '');
+imshow(inputMatrix)
 title('Input-Feature-Matrix')
 
-inputMatrixLayer1 = (255 - input_matrix_l1)/255;
+inputMatrixLayer1 = (255 - inputMatrix)/255;
 
-clear noise inputFeatureType inputFeatureMatrix
+clear noise inputFeatureType inputFeatureMatrix inputMatrix
 %% Weight-Matrix
 weightType = 'AddMul';          % {Add, AddMul, Mul, Special}
 lowerBound = -0.7;
 upperBound = 0.3;
 slope = 60;
-weightMatrix = GetGaussWeights(pixelCnt, featureCnt, slope, weightType, lowerBound, upperBound); 
+weights_matrix_l1 = GetGaussWeights(pixelCnt, featureCnt, slope, weightType, lowerBound, upperBound); 
 
 subplot(2,2,1)
-mesh(weightMatrix)
+mesh(weights_matrix_l1)
 title('Weight-Matrix')
 
 clear lowerBound upperBound slope weightType
 
 %% Activation-Function_Layer-1_All-Neurons
-activation_function_l1_all_neurons_dnd = 100;
-activation_function_l1_all_neurons_bias = 0;
-activation_function_l1_all_neurons_resolution = 1000;
-activation_function_l1_all_neurons_threshold = 0.5;
+activation_function_l1_dnd = 100;
+activation_function_l1_bias = 0;
+activation_function_l1_resolution = 1000;
+threshold = 0.5;
 
-dnd = activation_function_l1_all_neurons_dnd;
-bias = activation_function_l1_all_neurons_bias;
-resolution = activation_function_l1_all_neurons_resolution;
-threshold = activation_function_l1_all_neurons_threshold;
+dnd = activation_function_l1_dnd;
+bias = activation_function_l1_bias;
+resolution = activation_function_l1_resolution;
 
-activation_function_l1_all_neurons_x = linspace(-dnd, dnd, resolution)';
-activation_function_l1_all_neurons_y = activation_function_l1_all_neurons_x;
+activation_function_l1_x = linspace(-dnd, dnd, resolution)';
+activation_function_l1_y = activation_function_l1_x;
 
-x = activation_function_l1_all_neurons_x;
-y = activation_function_l1_all_neurons_y;
+x = activation_function_l1_x;
+y = activation_function_l1_y;
 
 subplot(2,2,3)
 plot(x, y)
@@ -69,13 +72,13 @@ title('Activation-Function\_Layer-1\_All-Neurons')
 
 %% Calculation_Layer-1_All-Neurons
 
-output_l1_all_neurons = zeros(featureCnt, featureCnt);
+output_values_l1_all_neurons = zeros(featureCnt, featureCnt);
 
 for yi=1:1:(featureCnt)
    for xi=1:1:(featureCnt)
    
       % Bestimmung der Gewichte in Form eines Spaltenvektors
-      weightFeature = GetFeatureOfMatrix(weightMatrix, xi, yi, pixelCnt, featureCnt+1);
+      weightFeature = GetFeatureOfMatrix(weights_matrix_l1, xi, yi, pixelCnt, featureCnt+1);
       weightVector = ConvMatrixToColumn(weightFeature);
 
       % Bestimmung der Eingaenge in Form eines Spaltenvektors
@@ -83,16 +86,16 @@ for yi=1:1:(featureCnt)
       neuronInputs = ConvMatrixToColumn(neuronInputs);
       
       % Berechne Neuronenausgang
-      x = activation_function_l1_all_neurons_x;
-      y = activation_function_l1_all_neurons_y;
-      [neuronNetTerms, neuronOutput] = GetNeuronOutput(neuronInputs, weightVector, bias, x, y);
+      x = activation_function_l1_x;
+      y = activation_function_l1_y;
+      [neuronNetTerms, neuronOutput] = GetNeuronOutput(neuronInputs, weightVector, bias, linear_function_x, linear_function_y);
       
-      output_l1_all_neurons(yi, xi) = neuronOutput;    
+      output_values_l1_all_neurons(yi, xi) = neuronOutput;    
       
    end
 end
 
-temp = uint8(output_l1_all_neurons(1:end, 1:end));
+temp = uint8(output_values_l1_all_neurons(1:end, 1:end));
 multiplier = min(floor(255 ./ max(temp)));
 temp = multiplier .* temp;
 temp = 255 - temp;
@@ -107,18 +110,19 @@ clear inputMatrixLayer1
 %% new figure for layer 2
 figure
 
+%% Activation-Function_Layer-2
+
 %% Activation-Function_Layer-2_Neuron_H-Bar
-activiation_function_l2_h_bar_dnd = 100;
+activation_function_l2_h_bar_dnd = 100;
 activation_function_l2_h_bar_bias = -58;
 activation_function_l2_h_bar_resolution = 1000;
-activation_function_l2_h_bar_threshold = 0.5;
+threshold = 0.5;
 
-dnd = activiation_function_l2_h_bar_dnd;
+dnd = activation_function_l2_h_bar_dnd;
 bias = activation_function_l2_h_bar_bias;
 resolution = activation_function_l2_h_bar_resolution;
-threshold = activation_function_l2_h_bar_threshold;
 
-activation_function_l2_h_bar_x = linspace(-dnd, dnd, resolution);
+activation_function_l2_h_bar_x = linspace(-dnd, dnd, resolution)';
 activation_function_l2_h_bar_y = SigmoidFunction(activation_function_l2_h_bar_x, bias);
 
 x = activation_function_l2_h_bar_x;
@@ -131,27 +135,29 @@ line([-dnd dnd],[threshold threshold], 'color', 'y')
 axis([x(1) x(end) min(y) max(y)])
 title('Activation-Function\_Layer-2\_H-Bar')
 
-[neuronNetTerms, neuronOutput] = GetNeuronOutput(output_l1_all_neurons(featureMiddleStart:featureMiddleEnd, 1:end)', ones(1, featureCnt)', bias, sigmoid_function_x, sigmoid_function_y);
+weights_l2_h_bar = ones(1, featureCnt)';
+
+[neuronNetTerms, neuronOutput] = GetNeuronOutput(output_values_l1_all_neurons(featureMiddleStart:featureMiddleEnd, 1:end)', weights_l2_h_bar, bias, sigmoid_function_x, sigmoid_function_y);
 if (neuronOutput > threshold)
    plot(sum(neuronNetTerms), neuronOutput, 'o', 'color', 'g')
 else
    plot(sum(neuronNetTerms), neuronOutput, 'o', 'color', 'r')
 end
 
-output_l2_h_bar = neuronOutput;
+output_values_l2_h_bar = neuronOutput;
+
 %% Activation-Function_Layer-2_Neuron_V-Bar
-activiation_function_l2_v_bar_dnd = 100;
+activation_function_l2_v_bar_dnd = 100;
 activation_function_l2_v_bar_bias = -58;
 activation_function_l2_v_bar_resolution = 1000;
-activation_function_l2_v_bar_threshold = 0.5;
+threshold = 0.5;
 
-dnd = activiation_function_l2_v_bar_dnd;
+dnd = activation_function_l2_v_bar_dnd;
 bias = activation_function_l2_v_bar_bias;
 resolution = activation_function_l2_v_bar_resolution;
-threshold = activation_function_l2_v_bar_threshold;
 
-activation_function_l2_v_bar_x = linspace(-dnd, dnd, resolution);
-activation_function_l2_v_bar_y = SigmoidFunction(activation_function_l2_h_bar_x, bias);
+activation_function_l2_v_bar_x = linspace(-dnd, dnd, resolution)';
+activation_function_l2_v_bar_y = SigmoidFunction(activation_function_l2_v_bar_x, bias);
 
 x = activation_function_l2_v_bar_x;
 y = activation_function_l2_v_bar_y;
@@ -163,28 +169,29 @@ line([-dnd dnd],[threshold threshold], 'color', 'y')
 axis([x(1) x(end) min(y) max(y)])
 title('Activation-Function\_Layer-2\_V-Bar')
 
-[neuronNetTerms, neuronOutput] = GetNeuronOutput(output_l1_all_neurons(1:end, featureMiddleStart:featureMiddleEnd), ones(featureCnt, 1), bias, sigmoid_function_x, sigmoid_function_y);
+weights_l2_v_bar = ones(1, featureCnt)';
+
+[neuronNetTerms, neuronOutput] = GetNeuronOutput(output_values_l1_all_neurons(1:end, featureMiddleStart:featureMiddleEnd), weights_l2_v_bar, bias, sigmoid_function_x, sigmoid_function_y);
 if (neuronOutput > threshold)
    plot(sum(neuronNetTerms), neuronOutput, 'o', 'color', 'g')
 else
    plot(sum(neuronNetTerms), neuronOutput, 'o', 'color', 'r')
 end
 
-output_l2_v_bar = neuronOutput;
+output_values_l2_v_bar = neuronOutput;
 
 %% Activation-Function_Layer-2_Neuron_E-Bar
-activiation_function_l2_e_bar_dnd = 100;
+activation_function_l2_e_bar_dnd = 100;
 activation_function_l2_e_bar_bias = 22;
 activation_function_l2_e_bar_resolution = 1000;
-activation_function_l2_e_bar_threshold = 0.5;
+threshold = 0.5;
 
-dnd = activiation_function_l2_e_bar_dnd;
+dnd = activation_function_l2_e_bar_dnd;
 bias = activation_function_l2_e_bar_bias;
 resolution = activation_function_l2_e_bar_resolution;
-threshold = activation_function_l2_e_bar_threshold;
 
-activation_function_l2_e_bar_x = linspace(-dnd, dnd, resolution);
-activation_function_l2_e_bar_y = SigmoidFunction(activation_function_l2_h_bar_x, bias);
+activation_function_l2_e_bar_x = linspace(-dnd, dnd, resolution)';
+activation_function_l2_e_bar_y = SigmoidFunction(activation_function_l2_e_bar_x, bias);
 
 x = activation_function_l2_e_bar_x;
 y = activation_function_l2_e_bar_y;
@@ -196,16 +203,18 @@ line([-dnd dnd],[threshold threshold], 'color', 'y')
 axis([x(1) x(end) min(y) max(y)])
 title('Activation-Function\_Layer-2\_E-Bar')
 
-errorField1 = ConvMatrixToColumn(output_l1_all_neurons(1:2, 1:2));
-errorField2 = ConvMatrixToColumn(output_l1_all_neurons(4:5, 1:2));
-errorField3 = ConvMatrixToColumn(output_l1_all_neurons(1:2, 4:5));
-errorField4 = ConvMatrixToColumn(output_l1_all_neurons(4:5, 4:5));
+errorField1 = ConvMatrixToColumn(output_values_l1_all_neurons(1:2, 1:2));
+errorField2 = ConvMatrixToColumn(output_values_l1_all_neurons(4:5, 1:2));
+errorField3 = ConvMatrixToColumn(output_values_l1_all_neurons(1:2, 4:5));
+errorField4 = ConvMatrixToColumn(output_values_l1_all_neurons(4:5, 4:5));
 sz = size(errorField1);
 
-[neuronNetTerms1, neuronOutput1] = GetNeuronOutput(errorField1, ones(sz(1, 1), 1), bias, sigmoid_function_x, sigmoid_function_y);
-[neuronNetTerms2, neuronOutput2] = GetNeuronOutput(errorField2, ones(sz(1, 1), 1), bias, sigmoid_function_x, sigmoid_function_y);
-[neuronNetTerms3, neuronOutput3] = GetNeuronOutput(errorField3, ones(sz(1, 1), 1), bias, sigmoid_function_x, sigmoid_function_y);
-[neuronNetTerms4, neuronOutput4] = GetNeuronOutput(errorField4, ones(sz(1, 1), 1), bias, sigmoid_function_x, sigmoid_function_y);
+weights_l2_e_bar = ones(sz(1, 1) * 4, 1);
+
+[neuronNetTerms1, neuronOutput1] = GetNeuronOutput(errorField1, weights_l2_e_bar(1:4), bias, sigmoid_function_x, sigmoid_function_y);
+[neuronNetTerms2, neuronOutput2] = GetNeuronOutput(errorField2, weights_l2_e_bar(5:8), bias, sigmoid_function_x, sigmoid_function_y);
+[neuronNetTerms3, neuronOutput3] = GetNeuronOutput(errorField3, weights_l2_e_bar(9:12), bias, sigmoid_function_x, sigmoid_function_y);
+[neuronNetTerms4, neuronOutput4] = GetNeuronOutput(errorField4, weights_l2_e_bar(13:16), bias, sigmoid_function_x, sigmoid_function_y);
 
 if (neuronOutput1 < threshold)
    plot(sum(neuronNetTerms1), neuronOutput1, 'o', 'color', 'r')
@@ -228,7 +237,7 @@ else
    plot(sum(neuronNetTerms4), neuronOutput4, '+', 'color', 'g')
 end
 
-output_l2_e_bar = (neuronOutput1 + neuronOutput2 + neuronOutput3 + neuronOutput4)/4;
+output_values_l2_e_bar = (neuronOutput1 + neuronOutput2 + neuronOutput3 + neuronOutput4)/4;
 
 clear sz errorField1 errorField2 errorField3 errorField4 
 clear neuronNetTerms1 neuronNetTerms2 neuronNetTerms3 neuronNetTerms4
@@ -238,20 +247,20 @@ clear neuronNetTerms neuronOutput
 
 %% Compress Layer 2 Neurons
 
-output_l2_complete = zeros(featureCnt, featureCnt);
+output_values_l2_summarized = zeros(featureCnt, featureCnt);
 
-if ((output_l2_h_bar + output_l2_h_bar) >= 1)
-   output_l2_complete(featureMiddleStart:featureMiddleEnd, 1:end) = 1;
+if ((output_values_l2_h_bar + output_values_l2_e_bar) >= 1.5)
+   output_values_l2_summarized(featureMiddleStart:featureMiddleEnd, 1:end) = 1;
 end
 
-if ((output_l2_v_bar + output_l2_h_bar) >= 1)
-   output_l2_complete(1:end, featureMiddleStart:featureMiddleEnd) = 1;
+if ((output_values_l2_v_bar + output_values_l2_e_bar) >= 1.5)
+   output_values_l2_summarized(1:end, featureMiddleStart:featureMiddleEnd) = 1;
 end
 
-output_l2_complete = 255*(1 - output_l2_complete);
+output_values_l2_summarized = 255*(1 - output_values_l2_summarized);
 
 subplot(2,2,4)
-imshow(output_l2_complete)
+imshow(output_values_l2_summarized)
 title('Output-Feature-Matrix\_Layer-2')
 
 clear featureMiddleStart featureMiddleEnd
