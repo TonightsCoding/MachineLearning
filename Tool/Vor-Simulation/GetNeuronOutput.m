@@ -31,15 +31,19 @@ function [netTerms, output] = GetNeuronOutput(inputs, weights, bias, domainOfDef
    netOutput = sum(netTerms);
    
    % Gueltigkeitsbereich der Zwischenergebnisse einschraenken
-   while (netOutput > domainOfDefinition) || (-domainOfDefinition > netOutput)
-      netOutput = netOutput ./ 2;
-      netTerms = netTerms ./ 2;
-      error('Zahlenbereich ueberschritten') 
+   if (domainOfDefinition ~= 0)
+      while (netOutput > domainOfDefinition) || (-domainOfDefinition > netOutput)
+         netOutput = netOutput ./ 2;
+         netTerms = netTerms ./ 2;
+         error('Zahlenbereich ueberschritten') 
+      end
    end
-   
+      
    % Funktion zuordnen
    if strcmp(type, 'sigmoid')
       output = SigmoidFunction(netOutput, bias);
+   elseif strcmp(type, 'linear')
+      output = netOutput;
    else
       error('type unknown, use sigmoid')  
    end
