@@ -264,3 +264,7 @@ imshow(output_values_l2_summarized)
 title('Output-Feature-Matrix\_Layer-2')
 
 clear featureMiddleStart featureMiddleEnd
+
+%% save workspace
+
+save('../datas_from_pre_simulation')
