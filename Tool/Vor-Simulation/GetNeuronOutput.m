@@ -1,4 +1,4 @@
-function [netTerms, output] = GetNeuronOutput(inputs, weights, bias, activation_function_x, activation_function_y)
+function [netTerms, output] = GetNeuronOutput(inputs, weights, activation_function_x, activation_function_y)
    % Berechnet ein Neuron und gibt das Zwischen- und Endergebnis zurueck.
    %
    % returns:
@@ -30,7 +30,6 @@ function [netTerms, output] = GetNeuronOutput(inputs, weights, bias, activation_
    % Summe ueber alle Zwischenergebnisse
    netOutput = sum(netTerms);
    
-   activation_function_x = activation_function_x - bias;
    len = length(activation_function_x);
    offset = activation_function_x(1);
    dx = (activation_function_x(end) - activation_function_x(1)) / len; 
