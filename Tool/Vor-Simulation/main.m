@@ -9,19 +9,6 @@ featureCnt = 5;
 featureMiddleStart = 3;
 featureMiddleEnd = 3;
 
-%% Sigmoid-Function
-
-sigmoid_function_x = linspace(-8,8,1000)';
-sigmoid_function_y = SigmoidFunction(1000, -8, 8, 0, 1, 0);
-
-%plot(sigmoid_function_x, sigmoid_function_y)
-%figure, hold on
-
-%% Linear-Function
-
-linear_function_x = linspace(-50, 50, 1000)';
-linear_function_y = linear_function_x;
-
 %% Input-Feature-Matrix_Layer-1
 inputFeatureType = 'Cross';    % {Cross, V_Line, H_Line, Cal}
 noise = 40;
@@ -34,7 +21,7 @@ title('Input-Feature-Matrix')
 
 inputMatrixLayer1 = (255 - inputMatrix)/255;
 
-clear noise inputFeatureType inputFeatureMatrix inputMatrix
+clear noise inputFeatureType inputMatrix
 %% Weight-Matrix
 weightType = 'AddMul';          % {Add, AddMul, Mul, Special}
 lowerBound = -0.7;
@@ -49,13 +36,12 @@ title('Weight-Matrix')
 clear lowerBound upperBound slope weightType
 
 %% Activation-Function_Layer-1_All-Neurons
-activation_function_l1_dnd = 100;
+activation_function_l1_dnd = 50;
 activation_function_l1_bias = 0;
 activation_function_l1_resolution = 1000;
 threshold = 0.5;
 
 dnd = activation_function_l1_dnd;
-bias = activation_function_l1_bias;
 resolution = activation_function_l1_resolution;
 
 activation_function_l1_x = linspace(-dnd, dnd, resolution)';
@@ -69,6 +55,8 @@ plot(x, y)
 line([-dnd dnd],[threshold threshold], 'color', 'y')
 axis([x(1) x(end) min(y) max(y)])
 title('Activation-Function\_Layer-1\_All-Neurons')
+
+clear dnd resolution threshold
 
 %% Calculation_Layer-1_All-Neurons
 
@@ -86,9 +74,7 @@ for yi=1:1:(featureCnt)
       neuronInputs = ConvMatrixToColumn(neuronInputs);
       
       % Berechne Neuronenausgang
-      x = activation_function_l1_x;
-      y = activation_function_l1_y;
-      [neuronNetTerms, neuronOutput] = GetNeuronOutput(neuronInputs, weightVector, bias, linear_function_x, linear_function_y);
+      [neuronNetTerms, neuronOutput] = GetNeuronOutput(neuronInputs, weightVector, x, y);
       
       output_values_l1_all_neurons(yi, xi) = neuronOutput;    
       
@@ -106,6 +92,7 @@ title('Output-Feature-Matrix\_Layer-1')
 clear temp xi yi
 clear weightFeature weightVector neuronInputs
 clear inputMatrixLayer1
+clear x y
 
 %% new figure for layer 2
 figure
@@ -137,7 +124,7 @@ title('Activation-Function\_Layer-2\_H-Bar')
 
 weights_l2_h_bar = ones(1, featureCnt)';
 
-[neuronNetTerms, neuronOutput] = GetNeuronOutput(output_values_l1_all_neurons(featureMiddleStart:featureMiddleEnd, 1:end)', weights_l2_h_bar, bias, sigmoid_function_x, sigmoid_function_y);
+[neuronNetTerms, neuronOutput] = GetNeuronOutput(output_values_l1_all_neurons(featureMiddleStart:featureMiddleEnd, 1:end)', weights_l2_h_bar, x, y);
 if (neuronOutput > threshold)
    plot(sum(neuronNetTerms), neuronOutput, 'o', 'color', 'g')
 else
@@ -146,6 +133,7 @@ end
 
 output_values_l2_h_bar = neuronOutput;
 
+clear x y bias resolution threshold dnd
 %% Activation-Function_Layer-2_Neuron_V-Bar
 activation_function_l2_v_bar_dnd = 100;
 activation_function_l2_v_bar_bias = -58;
@@ -171,7 +159,7 @@ title('Activation-Function\_Layer-2\_V-Bar')
 
 weights_l2_v_bar = ones(1, featureCnt)';
 
-[neuronNetTerms, neuronOutput] = GetNeuronOutput(output_values_l1_all_neurons(1:end, featureMiddleStart:featureMiddleEnd), weights_l2_v_bar, bias, sigmoid_function_x, sigmoid_function_y);
+[neuronNetTerms, neuronOutput] = GetNeuronOutput(output_values_l1_all_neurons(1:end, featureMiddleStart:featureMiddleEnd), weights_l2_v_bar, x, y);
 if (neuronOutput > threshold)
    plot(sum(neuronNetTerms), neuronOutput, 'o', 'color', 'g')
 else
@@ -180,6 +168,7 @@ end
 
 output_values_l2_v_bar = neuronOutput;
 
+clear x y bias resolution threshold dnd
 %% Activation-Function_Layer-2_Neuron_E-Bar
 activation_function_l2_e_bar_dnd = 100;
 activation_function_l2_e_bar_bias = 22;
@@ -211,10 +200,10 @@ sz = size(errorField1);
 
 weights_l2_e_bar = ones(sz(1, 1) * 4, 1);
 
-[neuronNetTerms1, neuronOutput1] = GetNeuronOutput(errorField1, weights_l2_e_bar(1:4), bias, sigmoid_function_x, sigmoid_function_y);
-[neuronNetTerms2, neuronOutput2] = GetNeuronOutput(errorField2, weights_l2_e_bar(5:8), bias, sigmoid_function_x, sigmoid_function_y);
-[neuronNetTerms3, neuronOutput3] = GetNeuronOutput(errorField3, weights_l2_e_bar(9:12), bias, sigmoid_function_x, sigmoid_function_y);
-[neuronNetTerms4, neuronOutput4] = GetNeuronOutput(errorField4, weights_l2_e_bar(13:16), bias, sigmoid_function_x, sigmoid_function_y);
+[neuronNetTerms1, neuronOutput1] = GetNeuronOutput(errorField1, weights_l2_e_bar(1:4), x, y);
+[neuronNetTerms2, neuronOutput2] = GetNeuronOutput(errorField2, weights_l2_e_bar(5:8), x, y);
+[neuronNetTerms3, neuronOutput3] = GetNeuronOutput(errorField3, weights_l2_e_bar(9:12), x, y);
+[neuronNetTerms4, neuronOutput4] = GetNeuronOutput(errorField4, weights_l2_e_bar(13:16), x, y);
 
 if (neuronOutput1 < threshold)
    plot(sum(neuronNetTerms1), neuronOutput1, 'o', 'color', 'r')
@@ -248,23 +237,36 @@ clear neuronNetTerms neuronOutput
 %% Compress Layer 2 Neurons
 
 output_values_l2_summarized = zeros(featureCnt, featureCnt);
+output_values_l2_h_bar_threshold = 1.5;
+output_values_l2_v_bar_threshold = 1.5;
 
-if ((output_values_l2_h_bar + output_values_l2_e_bar) >= 1.5)
+h_thres = output_values_l2_h_bar_threshold;
+v_thres = output_values_l2_v_bar_threshold;
+if ((output_values_l2_h_bar + output_values_l2_e_bar) >= h_thres)
    output_values_l2_summarized(featureMiddleStart:featureMiddleEnd, 1:end) = 1;
 end
 
-if ((output_values_l2_v_bar + output_values_l2_e_bar) >= 1.5)
+if ((output_values_l2_v_bar + output_values_l2_e_bar) >= v_thres)
    output_values_l2_summarized(1:end, featureMiddleStart:featureMiddleEnd) = 1;
 end
 
-output_values_l2_summarized = 255*(1 - output_values_l2_summarized);
+output_values_l2_summarized_pixel = 255*(1 - output_values_l2_summarized);
 
 subplot(2,2,4)
-imshow(output_values_l2_summarized)
+imshow(output_values_l2_summarized_pixel)
 title('Output-Feature-Matrix\_Layer-2')
 
-clear featureMiddleStart featureMiddleEnd
+clear featureMiddleStart featureMiddleEnd h_thres v_thres
 
+%% check result
+
+if inputFeatureMatrix == output_values_l2_summarized
+   disp('Test successful')
+else
+   disp('Test not successful')
+end
+
+clear inputFeatureMatrix output_values_l2_summarized
 %% save workspace
 
 save('../datas_from_pre_simulation')
