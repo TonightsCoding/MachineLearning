@@ -1,18 +1,18 @@
 close all, clear all
-fig1 = figure('pos',[80 120 750 750]);
+figure('pos',[80 120 750 750]);
 hold on
 
-% activiation_function_lx_dnd - activiation_function_domain-of-defintion
+% dnd - domain of defintion
 
 %% Global Parameter
-l0_interface_input_pixelCnt = 8;
-l0_interface_input_featureCnt = 5;
 featureMiddleStart = 3;
 featureMiddleEnd = 3;
 
-%% L0 Input Interface
-inputFeatureType = 'H_Line';    % {Cross, V_Line, H_Line, Cal}
+%% L0 Interface
+l0_interface_input_pixelCnt = 8;
+l0_interface_input_featureCnt = 5;
 l0_interface_input_noise = 40;
+inputFeatureType = 'H_Line';    % {Cross, V_Line, H_Line, Cal}
 l0_interface_input_feature_matrix = GetInputFeatureMatrix(l0_interface_input_featureCnt, inputFeatureType);
 
 subplot(2,2,1)
@@ -24,7 +24,7 @@ ylabel('pixel y')
 
 l0_interface_output_pixel_matrix = (255 - inputMatrix)/255;
 
-clear noise inputFeatureType inputMatrix
+clear inputFeatureType inputMatrix
 %% L1 Weights All Neurons
 weightType = 'AddMul';          % {Add, AddMul, Mul, Special}
 lowerBound = -0.7;
@@ -41,7 +41,7 @@ zlabel('weight')
 
 clear lowerBound upperBound slope weightType
 
-%% Activation-Function_Layer-1_All-Neurons
+%% Layer 1 All Neurons Activation Function
 l1_neuron_activation_function_dnd = 50;
 l1_neuron_activation_function_bias = 0;
 l1_neuron_activation_function_res = 1000;
@@ -66,7 +66,7 @@ ylabel('act. fct. output')
 
 clear dnd resolution threshold
 
-%% Calculation_Layer-1_All-Neurons
+%% Layer 1 All Neurons Calculation
 
 l1_neuron_output_all = zeros(l0_interface_input_featureCnt, l0_interface_input_featureCnt);
 
@@ -105,14 +105,13 @@ clear weightFeature weightVector neuronInputs
 clear x y
 
 %% new figure for layer 2
-fig2 = figure('Position',[850 120 750 750]);
+figure('Position',[850 120 750 750]);
 
-%% Activation-Function_Layer-2
-
-%% Activation-Function_Layer-2_Neuron_H-Bar
+%% Layer 2 H-Bar Neuron Activation Function
 l2_neuron_activation_function_h_bar_dnd = 100;
 l2_neuron_activation_function_h_bar_bias = -58;
 l2_neuron_activation_function_h_bar_res = 1000;
+l2_neuron_weights_h_bar = ones(1, l0_interface_input_featureCnt)';
 threshold = 0.5;
 
 dnd = l2_neuron_activation_function_h_bar_dnd;
@@ -134,8 +133,6 @@ title('l2\_activation\_function\_h\_bar', 'FontWeight', 'bold')
 xlabel('act. fct. input')
 ylabel('act. fct. output')
 
-l2_neuron_weights_h_bar = ones(1, l0_interface_input_featureCnt)';
-
 [neuronNetTerms, neuronOutput] = GetNeuronOutput(l1_neuron_output_all(featureMiddleStart:featureMiddleEnd, 1:end)', l2_neuron_weights_h_bar, x, y);
 if (neuronOutput > threshold)
    plot(sum(neuronNetTerms), neuronOutput, 'o', 'color', 'g')
@@ -146,10 +143,12 @@ end
 l2_neuron_output_h_bar = neuronOutput;
 
 clear x y bias resolution threshold dnd
-%% Activation-Function_Layer-2_Neuron_V-Bar
+
+%% Layer 2 V-Bar Neuron Activation Function
 l2_neuron_activation_function_v_bar_dnd = 100;
 l2_neuron_activation_function_v_bar_bias = -58;
 l2_neuron_activation_function_v_bar_res = 1000;
+l2_neuron_weights_v_bar = ones(1, l0_interface_input_featureCnt)';
 threshold = 0.5;
 
 dnd = l2_neuron_activation_function_v_bar_dnd;
@@ -171,8 +170,6 @@ title('l2\_activation\_function\_v\_bar', 'FontWeight', 'bold')
 xlabel('act. fct. input')
 ylabel('act. fct. output')
 
-l2_neuron_weights_v_bar = ones(1, l0_interface_input_featureCnt)';
-
 [neuronNetTerms, neuronOutput] = GetNeuronOutput(l1_neuron_output_all(1:end, featureMiddleStart:featureMiddleEnd), l2_neuron_weights_v_bar, x, y);
 if (neuronOutput > threshold)
    plot(sum(neuronNetTerms), neuronOutput, 'o', 'color', 'g')
@@ -183,10 +180,11 @@ end
 l2_neuron_output_v_bar = neuronOutput;
 
 clear x y bias resolution threshold dnd
-%% Activation-Function_Layer-2_Neuron_E-Bar
+%% Layer 2 E-Bar Neuron Activation Function
 l2_neuron_activation_function_e_bar_dnd = 100;
 l2_neuron_activation_function_e_bar_bias = 22;
 l2_neuron_activation_function_e_bar_res = 1000;
+l2_neuron_weights_e_bar = ones(16, 1);
 threshold = 0.5;
 
 dnd = l2_neuron_activation_function_e_bar_dnd;
@@ -212,9 +210,6 @@ errorField1 = ConvMatrixToColumn(l1_neuron_output_all(1:2, 1:2));
 errorField2 = ConvMatrixToColumn(l1_neuron_output_all(4:5, 1:2));
 errorField3 = ConvMatrixToColumn(l1_neuron_output_all(1:2, 4:5));
 errorField4 = ConvMatrixToColumn(l1_neuron_output_all(4:5, 4:5));
-sz = size(errorField1);
-
-l2_neuron_weights_e_bar = ones(sz(1, 1) * 4, 1);
 
 [neuronNetTerms1, neuronOutput1] = GetNeuronOutput(errorField1, l2_neuron_weights_e_bar(1:4), x, y);
 [neuronNetTerms2, neuronOutput2] = GetNeuronOutput(errorField2, l2_neuron_weights_e_bar(5:8), x, y);
@@ -250,7 +245,7 @@ clear neuronOutput1 neuronOutput2 neuronOutput3 neuronOutput4
 clear dnd bias resolution threshold x y
 clear neuronNetTerms neuronOutput
 
-%% Layer 3 Output Interface
+%% Layer 3 Interface Output
 
 l3_interface_input = [l2_neuron_output_h_bar; l2_neuron_output_v_bar; l2_neuron_output_e_bar];
 
@@ -268,17 +263,17 @@ if ((l2_neuron_output_v_bar + l2_neuron_output_e_bar) >= v_thres)
    l3_interface_output(1:end, featureMiddleStart:featureMiddleEnd) = 1;
 end
 
-output_values_l2_summarized_pixel = 255*(1 - l3_interface_output);
+output_values_l3_summarized_pixel = 255*(1 - l3_interface_output);
 
 subplot(2,2,4)
-imshow(output_values_l2_summarized_pixel)
+imshow(output_values_l3_summarized_pixel)
 title('l3\_interface\_output', 'FontWeight', 'bold')
 xlabel('feature x')
 ylabel('feature y')
 
 clear featureMiddleStart featureMiddleEnd h_thres v_thres
 
-%% check results
+%% Check Results
 
 if l0_interface_input_feature_matrix == l3_interface_output
    disp('Test successful')
