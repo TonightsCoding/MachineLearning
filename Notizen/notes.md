@@ -40,9 +40,15 @@ export_on_save:
 
 + Nächsten Ziele:
     + Blockschaltbild für seriellen Ablauf aus Sicht eines Merkmals (@Toni)
+    + Bei Übersicht noch Bias verschieben an Phi und rund machen
+    + Farbig machen und Gregorius nochmal schicken
     + wie funktioniert ein float, SW / HW (@Toni und Bryan)
     + definierte Schnittstelle (Vor-Simulation -> HW-Simulation)  (@Bryan)
         - 2 Funktionen für jede Simulation
+    + Umrechnung von tatsächlichen in Fixed Point
+    + Symetrische Aufteilung der Matrizen (@Bryan)
+    + [Matrix-FixedPoint, Matrix-Fehler] = Float_to_Fixed(Matrix-Float, Format)
+    + [Matrix-FixedPoint, Format] = Find_Fixed_for_Float(Matrix-Float, Maximale Abweichung) -> Fehler = Matrix-Float - Matrix-FixedPoint & Format ist eine Matrix die während der Suche befüllt
         
 + weitere Ziele:
     + Simulation für Hardware
