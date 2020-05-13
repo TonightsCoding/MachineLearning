@@ -40,9 +40,12 @@ export_on_save:
 
 + Nächsten Ziele:
     + Blockschaltbild für seriellen Ablauf aus Sicht eines Merkmals (@Toni)
+    + Bei Übersicht noch Bias verschieben an Phi und rund machen
+    + Farbig machen und Gregorius nochmal schicken
     + wie funktioniert ein float, SW / HW (@Toni und Bryan)
     + definierte Schnittstelle (Vor-Simulation -> HW-Simulation)  (@Bryan)
         - 2 Funktionen für jede Simulation
+    + Umrechnung von tatsächlichen in Fixed Point
         
 + weitere Ziele:
     + Simulation für Hardware
