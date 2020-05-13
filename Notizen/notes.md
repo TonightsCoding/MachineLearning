@@ -46,6 +46,9 @@ export_on_save:
     + definierte Schnittstelle (Vor-Simulation -> HW-Simulation)  (@Bryan)
         - 2 Funktionen für jede Simulation
     + Umrechnung von tatsächlichen in Fixed Point
+    + Symetrische Aufteilung der Matrizen (@Bryan)
+    + [Matrix-FixedPoint, Matrix-Fehler] = Float_to_Fixed(Matrix-Float, Format)
+    + [Matrix-FixedPoint, Format] = Find_Fixed_for_Float(Matrix-Float, Maximale Abweichung) -> Fehler = Matrix-Float - Matrix-FixedPoint & Format ist eine Matrix die während der Suche befüllt
         
 + weitere Ziele:
     + Simulation für Hardware
